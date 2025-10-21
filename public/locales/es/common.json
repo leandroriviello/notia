@@ -24,7 +24,7 @@
     "business": "Negocios",
     "regulation": "Regulaciones",
     "tools": "Herramientas",
-    "papers": "Papers",
+    "papers": "Publicaciones",
     "social": "Redes Sociales"
   },
   "actions": {
@@ -57,5 +57,12 @@
     "submit": "Continuar",
     "mockNotice": "El login demo acepta cualquier correo con contraseña 'notia'.",
     "error": "Credenciales inválidas. Usa la contraseña 'notia'."
+  },
+  "modal": {
+    "published": "Publicado",
+    "source": "Fuente",
+    "category": "Categoría",
+    "open": "Abrir artículo original",
+    "close": "Cerrar"
   }
 }

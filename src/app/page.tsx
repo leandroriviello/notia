@@ -8,6 +8,7 @@ import { getFeedSources, type FeedCategory } from "@/data/sources";
 import type { NewsArticle } from "@/types/news";
 import { FeedSidebar } from "@/components/FeedSidebar";
 import { InsightPanel } from "@/components/InsightPanel";
+import { NewsModal } from "@/components/NewsModal";
 
 type CategoryFilter = "all" | FeedCategory;
 
@@ -22,8 +23,15 @@ export default function HomePage() {
   const [category, setCategory] = useState<CategoryFilter>("all");
   const [newsState, setNewsState] = useState<Record<string, NewsState>>({});
   const [activeSources, setActiveSources] = useState<string[]>([]);
+  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(
+    null
+  );
 
   const availableSources = useMemo(() => getFeedSources(locale), [locale]);
+
+  useEffect(() => {
+    setSelectedArticle(null);
+  }, [locale]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -127,7 +135,7 @@ export default function HomePage() {
                 {Array.from({ length: 6 }).map((_, index) => (
                   <div
                     key={index}
-                    className="h-[88px] animate-pulse rounded-lg border border-[#1f2532] bg-[#161b22]"
+                    className="h-[88px] animate-pulse rounded-lg border border-[#1f1f1f] bg-[#131313]"
                   />
                 ))}
               </div>
@@ -139,8 +147,8 @@ export default function HomePage() {
               </div>
             )}
 
-        {!loading && !error && filteredNews.length === 0 && (
-              <div className="rounded-lg border border-[#1f2532] bg-[#161b22] p-6 text-sm text-zinc-400">
+            {!loading && !error && filteredNews.length === 0 && (
+              <div className="rounded-lg border border-[#1f1f1f] bg-[#131313] p-6 text-sm text-zinc-400">
                 {t("feed.noResults")}
               </div>
             )}
@@ -158,6 +166,7 @@ export default function HomePage() {
                       }
                     }
                     onUpdate={handleUpdate(item.link)}
+                    onOpen={() => setSelectedArticle(item)}
                   />
                 ))}
               </div>
@@ -166,6 +175,10 @@ export default function HomePage() {
           <InsightPanel articles={filteredNews} />
         </div>
       </section>
+      <NewsModal
+        article={selectedArticle}
+        onClose={() => setSelectedArticle(null)}
+      />
     </div>
   );
 }

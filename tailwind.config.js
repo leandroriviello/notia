@@ -8,8 +8,8 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#3B82F6",
-          accent: "#22C55E"
+          DEFAULT: "#F5F5F5",
+          accent: "#A1A1AA"
         }
       }
     }

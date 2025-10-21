@@ -49,6 +49,12 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       label: "AI Trends"
     },
     {
+      id: "wired-ai",
+      url: "https://www.wired.com/feed/category/science/artificial-intelligence/latest/rss",
+      category: "Products",
+      label: "WIRED AI"
+    },
+    {
       id: "synced-review",
       url: "https://syncedreview.com/feed",
       category: "Tools",
@@ -67,6 +73,12 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       label: "Built In AI"
     },
     {
+      id: "ai-blog",
+      url: "https://www.artificial-intelligence.blog/feed/",
+      category: "Research",
+      label: "AI Blog"
+    },
+    {
       id: "ai-act-news",
       url: "https://artificialintelligenceact.eu/feed/",
       category: "Regulation",
@@ -77,6 +89,12 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       url: "https://arxiv.org/rss/cs.AI",
       category: "Papers",
       label: "arXiv cs.AI"
+    },
+    {
+      id: "nvidia-blog",
+      url: "https://blogs.nvidia.com/feed/",
+      category: "Products",
+      label: "NVIDIA Blog"
     }
   ],
   es: [
@@ -115,6 +133,30 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       url: "https://www.muycomputer.com/tag/inteligencia-artificial/feed/",
       category: "Products",
       label: "MuyComputer IA"
+    },
+    {
+      id: "iblnews-ia",
+      url: "https://iblnews.es/feed/",
+      category: "Business",
+      label: "IBL News"
+    },
+    {
+      id: "la7tv-ia",
+      url: "https://www.la7tv.es/rss/tags/inteligencia-artificial/",
+      category: "Social",
+      label: "La 7 TV IA"
+    },
+    {
+      id: "webnode-ia",
+      url: "https://inteligencia-artificial294.webnode.es/rss/",
+      category: "Research",
+      label: "IA 294"
+    },
+    {
+      id: "elpais-ia",
+      url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/noticias-inteligencia-artificial?format=xml",
+      category: "Regulation",
+      label: "El País IA"
     }
   ]
 };

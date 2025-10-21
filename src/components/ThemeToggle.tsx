@@ -17,7 +17,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className={`${robotoMono.className} rounded-full border border-[#2d3441] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300`}
+        className={`${robotoMono.className} rounded-full border border-[#2a2a2a] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300`}
         aria-label={t("theme.toggle")}
       >
         —
@@ -31,7 +31,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`${robotoMono.className} flex items-center gap-2 rounded-full border border-[#2d3441] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition hover:border-[#3b82f6] hover:text-white`}
+      className={`${robotoMono.className} flex items-center gap-2 rounded-full border border-[#2a2a2a] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition hover:border-zinc-400 hover:text-white`}
       aria-label={t("theme.toggle")}
     >
       <span aria-hidden className="text-lg">

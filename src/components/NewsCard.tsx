@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo } from "react";
 import { useLanguage } from "./language-provider";
 import type { NewsArticle } from "@/types/news";
@@ -16,19 +15,30 @@ type NewsCardProps = {
   item: NewsArticle;
   state: NewsState;
   onUpdate: (state: NewsState) => void;
+  onOpen: () => void;
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  Research: "#22d3ee",
-  Products: "#34d399",
-  Business: "#fcd34d",
-  Regulation: "#f87171",
-  Tools: "#a855f7",
-  Papers: "#60a5fa",
-  Social: "#f472b6"
+  Research: "#e5e7eb",
+  Products: "#e5e7eb",
+  Business: "#e5e7eb",
+  Regulation: "#e5e7eb",
+  Tools: "#e5e7eb",
+  Papers: "#e5e7eb",
+  Social: "#e5e7eb"
 };
 
-export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
+const CATEGORY_TRANSLATIONS: Record<string, string> = {
+  Research: "research",
+  Products: "products",
+  Business: "business",
+  Regulation: "regulation",
+  Tools: "tools",
+  Papers: "papers",
+  Social: "social"
+};
+
+export function NewsCard({ item, state, onUpdate, onOpen }: NewsCardProps) {
   const { t } = useLanguage();
 
   const formattedDate = useMemo(() => {
@@ -39,11 +49,13 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
     });
   }, [item.date]);
 
-  const accent = CATEGORY_COLORS[item.category] ?? "#3B82F6";
+  const accent = CATEGORY_COLORS[item.category] ?? "#e5e7eb";
+  const categoryKey = CATEGORY_TRANSLATIONS[item.category] ?? "all";
+  const categoryLabel = t(`categories.${categoryKey}`).toUpperCase();
 
   return (
     <article
-      className={`group relative overflow-hidden rounded-lg border border-[#1f2532] bg-[#141923] p-5 transition hover:border-[#3b82f6]/60 ${
+      className={`group relative overflow-hidden rounded-lg border border-[#1f1f1f] bg-[#161616] p-5 transition hover:border-zinc-400 ${
         state.read ? "opacity-70" : ""
       }`}
       style={{ borderLeft: `3px solid ${accent}` }}
@@ -58,22 +70,21 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
           </time>
         </div>
         <div className="flex flex-col gap-2">
-          <Link
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="line-clamp-2 text-[17px] font-semibold leading-tight text-white transition group-hover:text-[#3b82f6]"
+          <button
+            type="button"
+            onClick={onOpen}
+            className="line-clamp-2 cursor-pointer text-left text-[17px] font-semibold leading-tight text-white transition hover:text-zinc-100 focus:outline-none"
           >
             {item.title}
-          </Link>
+          </button>
           <span
-            className={`${robotoMono.className} w-fit rounded-full bg-[#1f2532] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-300`}
+            className={`${robotoMono.className} w-fit rounded-full bg-[#1a1a1a] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-300`}
             style={{
               color: accent,
               backgroundColor: `${accent}20`
             }}
           >
-            {item.category}
+            {categoryLabel}
           </span>
         </div>
       </header>
@@ -94,8 +105,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               vote: state.vote === "up" ? undefined : "up"
             })
           }
-          className={`flex items-center gap-2 rounded-full border border-[#1f2532] px-4 py-1.5 transition hover:border-[#3b82f6] hover:text-[#3b82f6] ${
-            state.vote === "up" ? "border-[#3b82f6] text-[#3b82f6]" : ""
+          className={`flex items-center gap-2 rounded-full border border-[#1f1f1f] px-4 py-1.5 transition hover:border-zinc-300 hover:text-zinc-100 ${
+            state.vote === "up" ? "border-zinc-300 text-zinc-100" : ""
           }`}
         >
           👍 {t("actions.interesting")}
@@ -107,8 +118,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               vote: state.vote === "down" ? undefined : "down"
             })
           }
-          className={`flex items-center gap-2 rounded-full border border-[#1f2532] px-4 py-1.5 transition hover:border-[#3b82f6] hover:text-[#3b82f6] ${
-            state.vote === "down" ? "border-[#3b82f6]/70 text-[#3b82f6]" : ""
+          className={`flex items-center gap-2 rounded-full border border-[#1f1f1f] px-4 py-1.5 transition hover:border-zinc-300 hover:text-zinc-100 ${
+            state.vote === "down" ? "border-zinc-300 text-zinc-100" : ""
           }`}
         >
           👎 {t("actions.irrelevant")}
@@ -120,8 +131,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               saved: !state.saved
             })
           }
-          className={`flex items-center gap-2 rounded-full border border-[#1f2532] px-4 py-1.5 transition hover:border-[#3b82f6] hover:text-[#3b82f6] ${
-            state.saved ? "border-[#22c55e] text-[#22c55e]" : ""
+          className={`flex items-center gap-2 rounded-full border border-[#1f1f1f] px-4 py-1.5 transition hover:border-zinc-300 hover:text-zinc-100 ${
+            state.saved ? "border-zinc-300 text-zinc-100" : ""
           }`}
         >
           ⭐ {state.saved ? t("actions.saved") : t("actions.save")}
@@ -133,8 +144,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               read: !state.read
             })
           }
-          className={`ml-auto flex items-center gap-2 rounded-full border border-[#1f2532] px-4 py-1.5 transition hover:border-[#3b82f6] hover:text-[#3b82f6] ${
-            state.read ? "border-[#2f3645] text-zinc-300" : ""
+          className={`ml-auto flex items-center gap-2 rounded-full border border-[#1f1f1f] px-4 py-1.5 transition hover:border-zinc-300 hover:text-zinc-100 ${
+            state.read ? "border-zinc-400 text-zinc-300" : ""
           }`}
         >
           👁️ {t("actions.read")}

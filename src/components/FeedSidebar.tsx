@@ -24,7 +24,7 @@ export function FeedSidebar({ active, onSelect }: FeedSidebarProps) {
   const { t } = useLanguage();
 
   return (
-    <aside className="hidden h-fit rounded-xl border border-[#242b37] bg-[#161b22] p-4 shadow-inner shadow-black/20 md:block">
+    <aside className="hidden h-fit rounded-xl border border-[#232323] bg-[#131313] p-4 shadow-inner shadow-black/20 md:block">
       <p className={`${robotoMono.className} px-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500`}>
         {t("feed.filters")}
       </p>
@@ -37,8 +37,8 @@ export function FeedSidebar({ active, onSelect }: FeedSidebarProps) {
                 onClick={() => onSelect(key)}
                 className={`${robotoMono.className} flex w-full items-center gap-3 rounded-lg px-3 py-2 text-[12px] uppercase tracking-[0.22em] transition ${
                   isActive
-                    ? "bg-[#1f2630] text-white"
-                    : "text-zinc-400 hover:bg-[#1b2130] hover:text-white"
+                    ? "bg-[#1a1a1a] text-white"
+                    : "text-zinc-400 hover:bg-[#1a1a1a]/70 hover:text-white"
                 }`}
               >
                 <span className="text-lg">{ICONS[key]}</span>

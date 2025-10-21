@@ -19,7 +19,7 @@ export function Navbar() {
   const { t } = useLanguage();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#242b37] bg-[#161b22]/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-[#232323] bg-[#131313]/95 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center gap-6 px-4 py-4 text-zinc-200 md:px-6">
         <Link
           href="/"
@@ -36,7 +36,7 @@ export function Navbar() {
                 href={link.href}
                 className={`${robotoMono.className} border-b-2 px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.26em] transition ${
                   isActive
-                    ? "border-[#3b82f6] text-white"
+                    ? "border-brand text-white"
                     : "border-transparent text-zinc-500 hover:text-white"
                 }`}
               >
@@ -53,21 +53,21 @@ export function Navbar() {
           {session ? (
             <button
               onClick={() => signOut()}
-              className={`${robotoMono.className} rounded-full border border-[#2d3441] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-zinc-300 transition hover:border-[#3b82f6] hover:text-white`}
+              className={`${robotoMono.className} rounded-full border border-[#2a2a2a] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-zinc-300 transition hover:border-brand hover:text-white`}
             >
               {session.user?.name ?? session.user?.email}
             </button>
           ) : (
             <Link
               href="/login"
-              className={`${robotoMono.className} rounded-full border border-[#3b82f6]/70 px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-[#3b82f6] transition hover:border-[#3b82f6] hover:text-white`}
+              className={`${robotoMono.className} rounded-full border border-zinc-400 px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-zinc-100 transition hover:border-brand hover:text-white`}
             >
               {t("navbar.login")}
             </Link>
           )}
         </div>
       </div>
-      <nav className="flex gap-1 border-t border-[#242b37] bg-[#161b22] p-2 md:hidden">
+      <nav className="flex gap-1 border-t border-[#232323] bg-[#131313] p-2 md:hidden">
         {NAV_LINKS.map((link) => {
           const isActive = pathname === link.href;
           return (
@@ -76,7 +76,7 @@ export function Navbar() {
               href={link.href}
               className={`${robotoMono.className} flex-1 rounded-lg px-4 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.26em] transition ${
                 isActive
-                  ? "bg-[#1f2630] text-white"
+                  ? "bg-[#1a1a1a] text-white"
                   : "text-zinc-500 hover:text-white"
               }`}
             >

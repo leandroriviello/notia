@@ -11,12 +11,12 @@ export function LanguageSwitcher() {
       value={locale}
       onChange={(event) => setLocale(event.target.value as "en" | "es")}
       aria-label={t("language.label")}
-      className={`${robotoMono.className} rounded-full border border-[#2d3441] bg-transparent px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition focus:border-[#3b82f6] focus:outline-none`}
+      className={`${robotoMono.className} rounded-full border border-[#2a2a2a] bg-transparent px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition focus:border-zinc-400 focus:outline-none`}
     >
-      <option value="es" className="bg-[#0e1117] text-zinc-100">
+      <option value="es" className="bg-[#111111] text-zinc-100">
         ES
       </option>
-      <option value="en" className="bg-[#0e1117] text-zinc-100">
+      <option value="en" className="bg-[#111111] text-zinc-100">
         EN
       </option>
     </select>

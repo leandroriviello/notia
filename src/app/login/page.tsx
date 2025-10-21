@@ -39,7 +39,7 @@ export default function LoginPage() {
 
   return (
     <section className="mx-auto flex min-h-[70vh] max-w-lg flex-col justify-center px-4 py-12 text-zinc-200 md:px-6">
-      <div className="rounded-3xl border border-[#1f2532] bg-[#141923] p-8 shadow-xl shadow-black/30 backdrop-blur">
+      <div className="rounded-3xl border border-[#1f1f1f] bg-[#161616] p-8 shadow-xl shadow-black/30 backdrop-blur">
         <h1 className={`${robotoMono.className} text-3xl font-semibold uppercase tracking-[0.32em] text-white`}>
           {t("login.title")}
         </h1>
@@ -55,7 +55,7 @@ export default function LoginPage() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
-              className="mt-2 w-full rounded-xl border border-[#1f2532] bg-[#0f141d] px-4 py-3 text-sm text-zinc-100 focus:border-[#3b82f6] focus:outline-none"
+              className="mt-2 w-full rounded-xl border border-[#1f1f1f] bg-[#101010] px-4 py-3 text-sm text-zinc-100 focus:border-zinc-400 focus:outline-none"
             />
           </label>
           <label className={`${robotoMono.className} block text-xs uppercase tracking-[0.28em] text-zinc-500`}>
@@ -65,13 +65,13 @@ export default function LoginPage() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
-              className="mt-2 w-full rounded-xl border border-[#1f2532] bg-[#0f141d] px-4 py-3 text-sm text-zinc-100 focus:border-[#3b82f6] focus:outline-none"
+              className="mt-2 w-full rounded-xl border border-[#1f1f1f] bg-[#101010] px-4 py-3 text-sm text-zinc-100 focus:border-zinc-400 focus:outline-none"
             />
           </label>
           <button
             type="submit"
             disabled={loading}
-            className={`${robotoMono.className} w-full rounded-full border border-[#3b82f6]/70 px-5 py-3 text-xs uppercase tracking-[0.3em] text-[#3b82f6] transition hover:border-[#3b82f6] hover:text-white disabled:cursor-not-allowed disabled:opacity-50`}
+            className={`${robotoMono.className} w-full rounded-full border border-zinc-400 px-5 py-3 text-xs uppercase tracking-[0.3em] text-zinc-100 transition hover:border-zinc-300 hover:text-white disabled:cursor-not-allowed disabled:opacity-50`}
           >
             {loading ? "…" : t("login.submit")}
           </button>

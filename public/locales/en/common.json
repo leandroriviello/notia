@@ -57,5 +57,12 @@
     "submit": "Continue",
     "mockNotice": "Demo login accepts any email with password 'notia'.",
     "error": "Invalid credentials. Use password 'notia'."
+  },
+  "modal": {
+    "published": "Published",
+    "source": "Source",
+    "category": "Category",
+    "open": "Open original article",
+    "close": "Close"
   }
 }

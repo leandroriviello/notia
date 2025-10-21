@@ -85,7 +85,7 @@ export default function SettingsPage() {
         {t("settings.description")}
       </p>
 
-      <div className="mt-8 space-y-6 rounded-3xl border border-[#1f2532] bg-[#141923] p-6 shadow-xl shadow-black/30 backdrop-blur">
+      <div className="mt-8 space-y-6 rounded-3xl border border-[#1f1f1f] bg-[#161616] p-6 shadow-xl shadow-black/30 backdrop-blur">
         {Object.entries(groupedSources).map(([category, sources]) => {
           const translationKey = category.toLowerCase();
           return (

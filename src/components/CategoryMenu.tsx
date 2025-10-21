@@ -27,7 +27,7 @@ export function CategoryMenu({ active, onSelect }: CategoryMenuProps) {
   const { t } = useLanguage();
 
   return (
-    <nav className="sticky top-[64px] z-30 border-b border-[#242b37] bg-[#161b22]/95 backdrop-blur">
+    <nav className="sticky top-[64px] z-30 border-b border-[#232323] bg-[#131313]/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl gap-6 overflow-x-auto px-4 py-3 md:px-6">
         {CATEGORIES.map((category) => {
           const isActive = active === category.value;
@@ -37,7 +37,7 @@ export function CategoryMenu({ active, onSelect }: CategoryMenuProps) {
               onClick={() => onSelect(category.value)}
               className={`${robotoMono.className} whitespace-nowrap border-b-2 px-2 pb-1 text-[11px] font-semibold uppercase tracking-[0.26em] transition ${
                 isActive
-                  ? "border-[#3b82f6] text-white"
+                  ? "border-brand text-white"
                   : "border-transparent text-zinc-500 hover:text-white"
               }`}
             >

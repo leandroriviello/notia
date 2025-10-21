@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${roboto.className} min-h-screen bg-[#11141b] text-zinc-100 transition-colors`}
+        className={`${roboto.className} min-h-screen bg-[#0d0d0d] text-zinc-100 transition-colors`}
       >
         <Providers>
           <div className="flex min-h-screen flex-col">

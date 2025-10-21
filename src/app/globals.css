@@ -12,14 +12,14 @@
 
 html,
 body {
-  @apply bg-[#11141b] text-zinc-100 antialiased transition-colors duration-300;
+  @apply bg-[#0d0d0d] text-zinc-100 antialiased transition-colors duration-300;
 }
 
 html.light,
 html.light body {
-  @apply bg-[#f7f8fa] text-[#0f141e];
+  @apply bg-[#f7f8fa] text-[#111111];
 }
 
 a {
-  @apply text-[#3b82f6] hover:text-white transition-colors;
+  @apply text-zinc-200 hover:text-white transition-colors;
 }
