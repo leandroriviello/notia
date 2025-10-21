@@ -16,6 +16,7 @@ type NewsCardProps = {
   state: NewsState;
   onUpdate: (state: NewsState) => void;
   onOpen: () => void;
+  locale: string;
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -38,7 +39,7 @@ const CATEGORY_TRANSLATIONS: Record<string, string> = {
   Social: "social"
 };
 
-export function NewsCard({ item, state, onUpdate, onOpen }: NewsCardProps) {
+export function NewsCard({ item, state, onUpdate, onOpen, locale }: NewsCardProps) {
   const { t } = useLanguage();
 
   const formattedDate = useMemo(() => {
@@ -62,7 +63,12 @@ export function NewsCard({ item, state, onUpdate, onOpen }: NewsCardProps) {
         state.read ? "opacity-70" : ""
       }`}
       style={{ borderLeft: `3px solid ${accent}` }}
+      itemScope
+      itemType="https://schema.org/NewsArticle"
     >
+      <meta itemProp="datePublished" content={item.date} />
+      <meta itemProp="inLanguage" content={locale} />
+      <meta itemProp="url" content={item.link} />
       <header className="mb-4 flex flex-col gap-3">
         <div
           className={`${robotoMono.className} flex items-center justify-between text-[11px] uppercase tracking-[0.24em] text-zinc-500`}
@@ -77,6 +83,7 @@ export function NewsCard({ item, state, onUpdate, onOpen }: NewsCardProps) {
             type="button"
             onClick={onOpen}
             className="line-clamp-2 cursor-pointer text-left text-[17px] font-semibold leading-tight text-white transition hover:text-zinc-100 focus:outline-none"
+            itemProp="headline"
           >
             {item.title}
           </button>
@@ -92,7 +99,7 @@ export function NewsCard({ item, state, onUpdate, onOpen }: NewsCardProps) {
         </div>
       </header>
       {summaryPreview && summaryPreview !== "No summary available." && (
-        <p className="mb-4 line-clamp-3 text-[13px] leading-relaxed text-zinc-400">
+        <p className="mb-4 line-clamp-3 text-[13px] leading-relaxed text-zinc-400" itemProp="description">
           {summaryPreview.length > 220
             ? `${summaryPreview.slice(0, 220)}…`
             : summaryPreview}

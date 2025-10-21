@@ -47,7 +47,8 @@ export function NewsModal({ article, onClose }: NewsModalProps) {
   });
   const categoryKey = CATEGORY_TRANSLATIONS[article.category] ?? "all";
   const categoryLabel = t(`categories.${categoryKey}`).toUpperCase();
-  const paragraphs = article.summary
+  const rawSummary = article.summary ?? "";
+  const paragraphs = rawSummary
     .split(/\n{2,}/)
     .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
     .filter((paragraph) => paragraph && paragraph !== "No summary available.");

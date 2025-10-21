@@ -6,8 +6,7 @@
   "navbar": {
     "home": "Inicio",
     "settings": "Preferencias",
-    "login": "Iniciar sesión",
-    "logout": "Cerrar sesión"
+    "subscribe": "Suscribirse"
   },
   "language": {
     "label": "Idioma"
@@ -40,7 +39,9 @@
     "filters": "Filtros",
     "topSources": "Fuentes destacadas",
     "insightPlaceholder": "Pronto verás aquí tus guardados y analíticas.",
-    "showMore": "Mostrar más…"
+    "showMore": "Mostrar más…",
+    "heading": "Noticias y novedades sobre Inteligencia Artificial",
+    "subheading": "Descubre investigaciones, productos, negocios, regulaciones, herramientas y papers destacados del mundo de la IA."
   },
   "settings": {
     "title": "Configuración",

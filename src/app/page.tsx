@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CategoryMenu } from "@/components/CategoryMenu";
 import { NewsCard, NewsState } from "@/components/NewsCard";
 import { useLanguage } from "@/components/language-provider";
-import { getFeedSources, type FeedCategory } from "@/data/sources";
+import { getFeedSources } from "@/data/sources";
 import type { NewsArticle } from "@/types/news";
 import { FeedSidebar } from "@/components/FeedSidebar";
 import { InsightPanel } from "@/components/InsightPanel";
@@ -12,7 +12,7 @@ import { NewsModal } from "@/components/NewsModal";
 import { CATEGORY_CONFIG, type CategoryValue } from "@/constants/categories";
 import { robotoMono } from "@/styles/fonts";
 
-type CategoryFilter = "all" | FeedCategory;
+type CategoryFilter = "all" | CategoryValue;
 
 const NEWS_STATE_KEY = "notia:news-state";
 const SOURCE_PREF_KEY = (locale: string) => `notia:sources:${locale}`;
@@ -145,8 +145,40 @@ export default function HomePage() {
     return filteredNews.slice(0, visibleCount);
   }, [filteredNews, visibleCount]);
 
+  const structuredData = useMemo(() => {
+    const localizedName =
+      locale === "es"
+        ? "Notia — Noticias de Inteligencia Artificial"
+        : "Notia — AI News Dashboard";
+    const items = filteredNews.slice(0, 20).map((item) => ({
+      "@type": "NewsArticle",
+      headline: item.title,
+      datePublished: item.date,
+      articleSection: item.category,
+      url: item.link,
+      author: {
+        "@type": "Organization",
+        name: item.source
+      }
+    }));
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: localizedName,
+      inLanguage: locale,
+      description: t("feed.subheading"),
+      about: "Artificial intelligence news aggregator",
+      hasPart: items
+    };
+  }, [filteredNews, locale, t]);
+
   return (
     <div className="pb-16 text-zinc-100">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 pt-12 md:px-6">
+        <h1 className={`${robotoMono.className} text-2xl font-semibold uppercase tracking-[0.24em] text-white`}>{t("feed.heading")}</h1>
+        <p className="max-w-3xl text-sm text-zinc-400">{t("feed.subheading")}</p>
+      </div>
       <CategoryMenu
         active={category}
         available={availableCategories}
@@ -201,6 +233,7 @@ export default function HomePage() {
                     }
                     onUpdate={handleUpdate(item.link)}
                     onOpen={() => setSelectedArticle(item)}
+                    locale={locale}
                   />
                 ))}
               </div>
@@ -220,6 +253,11 @@ export default function HomePage() {
           <InsightPanel articles={filteredNews} />
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <NewsModal
         article={selectedArticle}
         onClose={() => setSelectedArticle(null)}

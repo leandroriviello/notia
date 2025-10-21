@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "./language-provider";
@@ -15,8 +14,7 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const { data: session } = useSession();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#232323] bg-[#131313]/95 backdrop-blur">
@@ -50,20 +48,15 @@ export function Navbar() {
             <LanguageSwitcher />
             <ThemeToggle />
           </div>
-          {session ? (
-            <button
-              onClick={() => signOut()}
-              className={`${robotoMono.className} rounded-full border border-[#2a2a2a] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-zinc-300 transition hover:border-brand hover:text-white`}
-            >
-              {session.user?.name ?? session.user?.email}
-            </button>
-          ) : (
-            <Link
-              href="/login"
+          {locale === "es" && (
+            <a
+              href="https://notia.beehiiv.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className={`${robotoMono.className} rounded-full border border-zinc-400 px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-zinc-100 transition hover:border-brand hover:text-white`}
             >
-              {t("navbar.login")}
-            </Link>
+              {t("navbar.subscribe")}
+            </a>
           )}
         </div>
       </div>
@@ -85,6 +78,18 @@ export function Navbar() {
           );
         })}
       </nav>
+      {locale === "es" && (
+        <div className="flex justify-center border-t border-[#232323] bg-[#131313] p-3 md:hidden">
+          <a
+            href="https://notia.beehiiv.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${robotoMono.className} inline-flex items-center justify-center rounded-full border border-zinc-400 px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-zinc-100 transition hover:border-brand hover:text-white`}
+          >
+            {t("navbar.subscribe")}
+          </a>
+        </div>
+      )}
     </header>
   );
 }

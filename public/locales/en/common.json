@@ -6,8 +6,7 @@
   "navbar": {
     "home": "Home",
     "settings": "Settings",
-    "login": "Log in",
-    "logout": "Log out"
+    "subscribe": "Subscribe"
   },
   "language": {
     "label": "Language"
@@ -40,7 +39,9 @@
     "filters": "Filters",
     "topSources": "Top sources",
     "insightPlaceholder": "Your saved articles and analytics will live here soon.",
-    "showMore": "Show more…"
+    "showMore": "Show more…",
+    "heading": "Artificial Intelligence News & Updates",
+    "subheading": "Stay ahead with curated AI research, products, business moves, regulations, tools, and papers."
   },
   "settings": {
     "title": "Settings",
