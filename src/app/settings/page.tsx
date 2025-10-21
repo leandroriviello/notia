@@ -1,41 +1,48 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { feedSources } from "@/data/sources";
+import { getFeedSources } from "@/data/sources";
 import { useLanguage } from "@/components/language-provider";
 import { robotoMono } from "@/styles/fonts";
 
-const SOURCE_PREF_KEY = "notia:sources";
+const SOURCE_PREF_KEY = (locale: string) => `notia:sources:${locale}`;
 
 export default function SettingsPage() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
   const [savedMessage, setSavedMessage] = useState("");
 
+  const availableSources = useMemo(() => getFeedSources(locale), [locale]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const stored = window.localStorage.getItem(SOURCE_PREF_KEY);
+    const key = SOURCE_PREF_KEY(locale);
+    const stored = window.localStorage.getItem(key);
     if (stored) {
       try {
-        const parsed = JSON.parse(stored);
+        const parsed = JSON.parse(stored) as string[];
         setSelectedSources(parsed);
+        setSavedMessage("");
+        return;
       } catch {
-        setSelectedSources(feedSources.map((source) => source.label));
+        // fall through to defaults below
       }
-    } else {
-      setSelectedSources(feedSources.map((source) => source.label));
     }
-  }, []);
+    const defaults = availableSources.map((source) => source.label);
+    setSelectedSources(defaults);
+    window.localStorage.setItem(key, JSON.stringify(defaults));
+    setSavedMessage("");
+  }, [locale, availableSources]);
 
   const groupedSources = useMemo(() => {
-    return feedSources.reduce<Record<string, string[]>>((acc, source) => {
+    return availableSources.reduce<Record<string, string[]>>((acc, source) => {
       if (!acc[source.category]) {
         acc[source.category] = [];
       }
       acc[source.category].push(source.label);
       return acc;
     }, {});
-  }, []);
+  }, [availableSources]);
 
   const toggleSource = (label: string) => {
     setSelectedSources((prev) =>
@@ -48,7 +55,7 @@ export default function SettingsPage() {
   const handleSave = () => {
     if (typeof window !== "undefined") {
       window.localStorage.setItem(
-        SOURCE_PREF_KEY,
+        SOURCE_PREF_KEY(locale),
         JSON.stringify(selectedSources)
       );
       setSavedMessage(t("settings.stored"));
@@ -57,10 +64,13 @@ export default function SettingsPage() {
   };
 
   const handleReset = () => {
-    const all = feedSources.map((source) => source.label);
+    const all = availableSources.map((source) => source.label);
     setSelectedSources(all);
     if (typeof window !== "undefined") {
-      window.localStorage.setItem(SOURCE_PREF_KEY, JSON.stringify(all));
+      window.localStorage.setItem(
+        SOURCE_PREF_KEY(locale),
+        JSON.stringify(all)
+      );
     }
   };
 

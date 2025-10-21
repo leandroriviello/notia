@@ -1,5 +1,5 @@
 import Parser from "rss-parser";
-import { feedSources } from "@/data/sources";
+import { getFeedSources, type Locale } from "@/data/sources";
 import type { NewsArticle } from "@/types/news";
 
 const parser = new Parser({
@@ -16,9 +16,10 @@ function sanitize(text: string | undefined | null): string {
     .trim();
 }
 
-export async function fetchNews(): Promise<NewsArticle[]> {
+export async function fetchNews(locale: Locale = "en"): Promise<NewsArticle[]> {
+  const sources = getFeedSources(locale);
   const results = await Promise.all(
-    feedSources.map(async (feed) => {
+    sources.map(async (feed) => {
       try {
         const parsed = await parser.parseURL(feed.url);
         return parsed.items.map((item) => ({

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CategoryMenu } from "@/components/CategoryMenu";
 import { NewsCard, NewsState } from "@/components/NewsCard";
 import { useLanguage } from "@/components/language-provider";
-import { feedSources, type FeedCategory } from "@/data/sources";
+import { getFeedSources, type FeedCategory } from "@/data/sources";
 import type { NewsArticle } from "@/types/news";
 import { FeedSidebar } from "@/components/FeedSidebar";
 import { InsightPanel } from "@/components/InsightPanel";
@@ -12,16 +12,18 @@ import { InsightPanel } from "@/components/InsightPanel";
 type CategoryFilter = "all" | FeedCategory;
 
 const NEWS_STATE_KEY = "notia:news-state";
-const SOURCE_PREF_KEY = "notia:sources";
+const SOURCE_PREF_KEY = (locale: string) => `notia:sources:${locale}`;
 
 export default function HomePage() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [category, setCategory] = useState<CategoryFilter>("all");
   const [newsState, setNewsState] = useState<Record<string, NewsState>>({});
-  const [activeSources, setActiveSources] = useState<string[] | null>(null);
+  const [activeSources, setActiveSources] = useState<string[]>([]);
+
+  const availableSources = useMemo(() => getFeedSources(locale), [locale]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -35,23 +37,35 @@ export default function HomePage() {
       }
     }
 
-    const storedSources = window.localStorage.getItem(SOURCE_PREF_KEY);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const key = SOURCE_PREF_KEY(locale);
+    const storedSources = window.localStorage.getItem(key);
     if (storedSources) {
       try {
-        setActiveSources(JSON.parse(storedSources));
+        const parsed = JSON.parse(storedSources) as string[];
+        setActiveSources(parsed);
+        setCategory("all");
+        return;
       } catch {
-        setActiveSources(null);
+        // fall through to defaults
       }
-    } else {
-      setActiveSources(feedSources.map((source) => source.label));
     }
-  }, []);
+    const defaults = availableSources.map((source) => source.label);
+    setActiveSources(defaults);
+    setCategory("all");
+    window.localStorage.setItem(key, JSON.stringify(defaults));
+  }, [locale, availableSources]);
 
   useEffect(() => {
     const load = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/news", { cache: "no-store" });
+        const response = await fetch(`/api/news?locale=${locale}`, {
+          cache: "no-store"
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch news");
         }
@@ -67,7 +81,7 @@ export default function HomePage() {
     };
 
     load();
-  }, [t]);
+  }, [locale, t]);
 
   const handleUpdate = (link: string) => (state: NewsState) => {
     setNewsState((prev) => {
@@ -82,7 +96,7 @@ export default function HomePage() {
   const filteredNews = useMemo(() => {
     return news
       .filter((item) => {
-        if (!activeSources || activeSources.length === 0) return true;
+        if (activeSources.length === 0) return true;
         return activeSources.includes(item.source);
       })
       .filter((item) => {
@@ -125,7 +139,7 @@ export default function HomePage() {
               </div>
             )}
 
-            {!loading && !error && filteredNews.length === 0 && (
+        {!loading && !error && filteredNews.length === 0 && (
               <div className="rounded-lg border border-[#1f2532] bg-[#161b22] p-6 text-sm text-zinc-400">
                 {t("feed.noResults")}
               </div>
