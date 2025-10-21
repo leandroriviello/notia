@@ -1,0 +1,58 @@
+{
+  "app": {
+    "name": "notia",
+    "tagline": "Tablero de noticias de IA"
+  },
+  "navbar": {
+    "home": "Inicio",
+    "settings": "Preferencias",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "theme": {
+    "toggle": "Cambiar tema",
+    "dark": "Oscuro",
+    "light": "Claro"
+  },
+  "categories": {
+    "all": "Todas",
+    "research": "Investigación",
+    "products": "Productos",
+    "business": "Negocios",
+    "regulation": "Regulaciones",
+    "tools": "Herramientas",
+    "papers": "Papers",
+    "social": "Redes Sociales"
+  },
+  "actions": {
+    "interesting": "Interesante",
+    "irrelevant": "Irrelevante",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "read": "Leído"
+  },
+  "feed": {
+    "noResults": "No hay artículos que coincidan con este filtro.",
+    "fetchError": "No se pudo cargar el feed de noticias."
+  },
+  "settings": {
+    "title": "Configuración",
+    "description": "Elige qué fuentes quieres ver en tu feed.",
+    "sourcesLabel": "Fuentes activas",
+    "save": "Guardar preferencias",
+    "reset": "Restablecer",
+    "stored": "Preferencias guardadas localmente."
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "subtitle": "Accede para sincronizar tus preferencias y noticias guardadas.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Continuar",
+    "mockNotice": "El login demo acepta cualquier correo con contraseña 'notia'.",
+    "error": "Credenciales inválidas. Usa la contraseña 'notia'."
+  }
+}

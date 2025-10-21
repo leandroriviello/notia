@@ -1,0 +1,58 @@
+{
+  "app": {
+    "name": "notia",
+    "tagline": "AI news dashboard"
+  },
+  "navbar": {
+    "home": "Home",
+    "settings": "Settings",
+    "login": "Log in",
+    "logout": "Log out"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "categories": {
+    "all": "All",
+    "research": "Research",
+    "products": "Products",
+    "business": "Business",
+    "regulation": "Regulation",
+    "tools": "Tools",
+    "papers": "Papers",
+    "social": "Social"
+  },
+  "actions": {
+    "interesting": "Interesting",
+    "irrelevant": "Irrelevant",
+    "save": "Save",
+    "saved": "Saved",
+    "read": "Read"
+  },
+  "feed": {
+    "noResults": "No articles match this filter.",
+    "fetchError": "Unable to load news feed."
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Choose which sources you want to see in your feed.",
+    "sourcesLabel": "Active Sources",
+    "save": "Save Preferences",
+    "reset": "Reset Defaults",
+    "stored": "Preferences saved locally."
+  },
+  "login": {
+    "title": "Log in",
+    "subtitle": "Sign in to sync preferences and saved news.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Continue",
+    "mockNotice": "Demo login accepts any email with password 'notia'.",
+    "error": "Invalid credentials. Use password 'notia'."
+  }
+}
