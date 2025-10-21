@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/Navbar";
 import "./globals.css";
+import { roboto } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: "notia — AI news dashboard",
@@ -16,7 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className="min-h-screen bg-[#0a0d13] text-zinc-100 transition-colors dark:bg-[#0a0d13]">
+      <body
+        className={`${roboto.className} min-h-screen bg-[#11141b] text-zinc-100 transition-colors`}
+      >
         <Providers>
           <div className="flex min-h-screen flex-col">
             <Navbar />

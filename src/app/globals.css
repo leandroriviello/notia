@@ -12,17 +12,14 @@
 
 html,
 body {
-  @apply bg-[#0a0d13] text-zinc-100 antialiased transition-colors duration-300;
-  background-image: radial-gradient(circle at top, rgba(59, 130, 246, 0.12), transparent 45%), radial-gradient(circle at bottom, rgba(34, 197, 94, 0.08), transparent 55%);
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  @apply bg-[#11141b] text-zinc-100 antialiased transition-colors duration-300;
 }
 
 html.light,
 html.light body {
-  @apply bg-zinc-100 text-zinc-900;
-  background-image: none;
+  @apply bg-[#f7f8fa] text-[#0f141e];
 }
 
 a {
-  @apply text-brand hover:text-brand-accent transition-colors;
+  @apply text-[#3b82f6] hover:text-white transition-colors;
 }

@@ -6,6 +6,7 @@ import { signOut, useSession } from "next-auth/react";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "./language-provider";
+import { robotoMono } from "@/styles/fonts";
 
 const NAV_LINKS = [
   { href: "/", key: "home" },
@@ -18,22 +19,25 @@ export function Navbar() {
   const { t } = useLanguage();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-brand/20 bg-[#0e1117]/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-4 text-zinc-100 md:px-6">
-        <Link href="/" className="text-2xl font-semibold lowercase tracking-[0.3em] text-white">
+    <header className="sticky top-0 z-40 border-b border-[#242b37] bg-[#161b22]/95 backdrop-blur">
+      <div className="mx-auto flex w-full max-w-6xl items-center gap-6 px-4 py-4 text-zinc-200 md:px-6">
+        <Link
+          href="/"
+          className={`${robotoMono.className} text-xl font-semibold uppercase tracking-[0.5em] text-white`}
+        >
           notia
         </Link>
-        <nav className="ml-6 hidden gap-1 rounded-xl bg-zinc-900/60 p-1 md:flex">
+        <nav className="hidden items-center gap-2 md:flex">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.key}
                 href={link.href}
-                className={`rounded-lg px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] transition ${
+                className={`${robotoMono.className} border-b-2 px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.26em] transition ${
                   isActive
-                    ? "bg-brand text-white"
-                    : "text-zinc-400 hover:text-white"
+                    ? "border-[#3b82f6] text-white"
+                    : "border-transparent text-zinc-500 hover:text-white"
                 }`}
               >
                 {t(`navbar.${link.key}`)}
@@ -42,36 +46,38 @@ export function Navbar() {
           })}
         </nav>
         <div className="ml-auto flex items-center gap-3">
-          <LanguageSwitcher />
-          <ThemeToggle />
+          <div className="hidden items-center gap-3 md:flex">
+            <LanguageSwitcher />
+            <ThemeToggle />
+          </div>
           {session ? (
             <button
               onClick={() => signOut()}
-              className="rounded-full border border-zinc-700 px-4 py-2 text-xs uppercase tracking-[0.2em] text-zinc-300 transition hover:border-brand hover:text-brand"
+              className={`${robotoMono.className} rounded-full border border-[#2d3441] px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-zinc-300 transition hover:border-[#3b82f6] hover:text-white`}
             >
               {session.user?.name ?? session.user?.email}
             </button>
           ) : (
             <Link
               href="/login"
-              className="rounded-full border border-brand px-4 py-2 text-xs uppercase tracking-[0.24em] text-brand transition hover:border-brand-accent hover:text-brand-accent"
+              className={`${robotoMono.className} rounded-full border border-[#3b82f6]/70 px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-[#3b82f6] transition hover:border-[#3b82f6] hover:text-white`}
             >
               {t("navbar.login")}
             </Link>
           )}
         </div>
       </div>
-      <nav className="flex gap-1 border-t border-zinc-900 bg-[#0e1117] p-2 md:hidden">
+      <nav className="flex gap-1 border-t border-[#242b37] bg-[#161b22] p-2 md:hidden">
         {NAV_LINKS.map((link) => {
           const isActive = pathname === link.href;
           return (
             <Link
               key={link.key}
               href={link.href}
-              className={`flex-1 rounded-lg px-4 py-2 text-center text-xs font-medium uppercase tracking-[0.24em] transition ${
+              className={`${robotoMono.className} flex-1 rounded-lg px-4 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.26em] transition ${
                 isActive
-                  ? "bg-brand text-white"
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-[#1f2630] text-white"
+                  : "text-zinc-500 hover:text-white"
               }`}
             >
               {t(`navbar.${link.key}`)}

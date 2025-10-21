@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { feedSources } from "@/data/sources";
 import { useLanguage } from "@/components/language-provider";
+import { robotoMono } from "@/styles/fonts";
 
 const SOURCE_PREF_KEY = "notia:sources";
 
@@ -65,19 +66,23 @@ export default function SettingsPage() {
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-12 text-zinc-200 md:px-6">
-      <h1 className="text-3xl font-semibold tracking-[0.1em] uppercase text-white">
+      <h1
+        className={`${robotoMono.className} text-3xl font-semibold uppercase tracking-[0.26em] text-white`}
+      >
         {t("settings.title")}
       </h1>
       <p className="mt-3 max-w-2xl text-sm text-zinc-500">
         {t("settings.description")}
       </p>
 
-      <div className="mt-8 space-y-6 rounded-3xl border border-zinc-900 bg-[#10151f]/80 p-6 shadow-xl shadow-black/30 backdrop-blur">
+      <div className="mt-8 space-y-6 rounded-3xl border border-[#1f2532] bg-[#141923] p-6 shadow-xl shadow-black/30 backdrop-blur">
         {Object.entries(groupedSources).map(([category, sources]) => {
           const translationKey = category.toLowerCase();
           return (
             <div key={category}>
-              <h2 className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500">
+              <h2
+                className={`${robotoMono.className} text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500`}
+              >
                 {t(`categories.${translationKey}`)}
               </h2>
               <div className="mt-3 flex flex-wrap gap-3">
@@ -102,7 +107,7 @@ export default function SettingsPage() {
           );
         })}
 
-        <div className="flex flex-wrap items-center gap-3 pt-4">
+        <div className={`${robotoMono.className} flex flex-wrap items-center gap-3 pt-4`}>
           <button
             onClick={handleSave}
             className="rounded-full border border-brand px-6 py-2 text-xs uppercase tracking-[0.24em] text-brand transition hover:border-brand-accent hover:text-brand-accent"

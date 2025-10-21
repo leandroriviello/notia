@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "./language-provider";
+import { robotoMono } from "@/styles/fonts";
 
 export function LanguageSwitcher() {
   const { locale, setLocale, t } = useLanguage();
@@ -10,7 +11,7 @@ export function LanguageSwitcher() {
       value={locale}
       onChange={(event) => setLocale(event.target.value as "en" | "es")}
       aria-label={t("language.label")}
-      className="rounded-full border border-zinc-700 bg-transparent px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition focus:border-brand focus:outline-none"
+      className={`${robotoMono.className} rounded-full border border-[#2d3441] bg-transparent px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition focus:border-[#3b82f6] focus:outline-none`}
     >
       <option value="es" className="bg-[#0e1117] text-zinc-100">
         ES

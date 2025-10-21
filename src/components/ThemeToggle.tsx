@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useLanguage } from "./language-provider";
+import { robotoMono } from "@/styles/fonts";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -16,7 +17,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="rounded-full border border-zinc-700 px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300"
+        className={`${robotoMono.className} rounded-full border border-[#2d3441] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300`}
         aria-label={t("theme.toggle")}
       >
         —
@@ -30,7 +31,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="flex items-center gap-2 rounded-full border border-zinc-700 px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition hover:border-brand hover:text-brand"
+      className={`${robotoMono.className} flex items-center gap-2 rounded-full border border-[#2d3441] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition hover:border-[#3b82f6] hover:text-white`}
       aria-label={t("theme.toggle")}
     >
       <span aria-hidden className="text-lg">

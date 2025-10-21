@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "./language-provider";
+import { robotoMono } from "@/styles/fonts";
 
 const CATEGORIES = [
   { key: "all", value: "all" },
@@ -26,18 +27,18 @@ export function CategoryMenu({ active, onSelect }: CategoryMenuProps) {
   const { t } = useLanguage();
 
   return (
-    <nav className="sticky top-[64px] z-30 border-b border-zinc-900/60 bg-zinc-950/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3 md:px-6">
+    <nav className="sticky top-[64px] z-30 border-b border-[#242b37] bg-[#161b22]/95 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl gap-6 overflow-x-auto px-4 py-3 md:px-6">
         {CATEGORIES.map((category) => {
           const isActive = active === category.value;
           return (
             <button
               key={category.key}
               onClick={() => onSelect(category.value)}
-              className={`whitespace-nowrap rounded-xl px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] transition ${
+              className={`${robotoMono.className} whitespace-nowrap border-b-2 px-2 pb-1 text-[11px] font-semibold uppercase tracking-[0.26em] transition ${
                 isActive
-                  ? "bg-brand/30 text-white shadow-sm shadow-brand/40"
-                  : "bg-zinc-900/50 text-zinc-500 hover:bg-zinc-900 hover:text-white"
+                  ? "border-[#3b82f6] text-white"
+                  : "border-transparent text-zinc-500 hover:text-white"
               }`}
             >
               {t(`categories.${category.key}`)}

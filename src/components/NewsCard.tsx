@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { useLanguage } from "./language-provider";
 import type { NewsArticle } from "@/types/news";
+import { robotoMono } from "@/styles/fonts";
 
 export type NewsState = {
   read: boolean;
@@ -42,13 +43,15 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
 
   return (
     <article
-      className={`group relative overflow-hidden rounded-xl border border-zinc-900 bg-[#10151f]/90 p-5 shadow-md shadow-black/20 transition hover:border-brand/60 ${
+      className={`group relative overflow-hidden rounded-lg border border-[#1f2532] bg-[#141923] p-5 transition hover:border-[#3b82f6]/60 ${
         state.read ? "opacity-70" : ""
       }`}
       style={{ borderLeft: `3px solid ${accent}` }}
     >
       <header className="mb-4 flex flex-col gap-3">
-        <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.3em] text-zinc-500">
+        <div
+          className={`${robotoMono.className} flex items-center justify-between text-[11px] uppercase tracking-[0.24em] text-zinc-500`}
+        >
           <span className="truncate">{item.source}</span>
           <time dateTime={item.date} className="whitespace-nowrap">
             {formattedDate}
@@ -59,12 +62,12 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="line-clamp-2 text-lg font-semibold text-white transition group-hover:text-brand"
+            className="line-clamp-2 text-[17px] font-semibold leading-tight text-white transition group-hover:text-[#3b82f6]"
           >
             {item.title}
           </Link>
           <span
-            className="w-fit rounded-full bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-300"
+            className={`${robotoMono.className} w-fit rounded-full bg-[#1f2532] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-300`}
             style={{
               color: accent,
               backgroundColor: `${accent}20`
@@ -75,13 +78,15 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
         </div>
       </header>
       {item.summary && (
-        <p className="mb-6 text-sm text-zinc-400">
-          {item.summary.length > 240
-            ? `${item.summary.slice(0, 240)}…`
+        <p className="mb-4 line-clamp-3 text-[13px] leading-relaxed text-zinc-400">
+          {item.summary.length > 220
+            ? `${item.summary.slice(0, 220)}…`
             : item.summary}
         </p>
       )}
-      <footer className="mt-auto flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-zinc-400">
+      <footer
+        className={`${robotoMono.className} mt-auto flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-zinc-500`}
+      >
         <button
           onClick={() =>
             onUpdate({
@@ -89,8 +94,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               vote: state.vote === "up" ? undefined : "up"
             })
           }
-          className={`flex items-center gap-2 rounded-full border border-zinc-800 px-4 py-2 transition hover:border-brand hover:text-brand ${
-            state.vote === "up" ? "border-brand text-brand" : ""
+          className={`flex items-center gap-2 rounded-full border border-[#1f2532] px-4 py-1.5 transition hover:border-[#3b82f6] hover:text-[#3b82f6] ${
+            state.vote === "up" ? "border-[#3b82f6] text-[#3b82f6]" : ""
           }`}
         >
           👍 {t("actions.interesting")}
@@ -102,8 +107,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               vote: state.vote === "down" ? undefined : "down"
             })
           }
-          className={`flex items-center gap-2 rounded-full border border-zinc-800 px-4 py-2 transition hover:border-brand hover:text-brand ${
-            state.vote === "down" ? "border-brand/60 text-brand" : ""
+          className={`flex items-center gap-2 rounded-full border border-[#1f2532] px-4 py-1.5 transition hover:border-[#3b82f6] hover:text-[#3b82f6] ${
+            state.vote === "down" ? "border-[#3b82f6]/70 text-[#3b82f6]" : ""
           }`}
         >
           👎 {t("actions.irrelevant")}
@@ -115,8 +120,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               saved: !state.saved
             })
           }
-          className={`flex items-center gap-2 rounded-full border border-zinc-800 px-4 py-2 transition hover:border-brand hover:text-brand ${
-            state.saved ? "border-brand-accent/80 text-brand-accent" : ""
+          className={`flex items-center gap-2 rounded-full border border-[#1f2532] px-4 py-1.5 transition hover:border-[#3b82f6] hover:text-[#3b82f6] ${
+            state.saved ? "border-[#22c55e] text-[#22c55e]" : ""
           }`}
         >
           ⭐ {state.saved ? t("actions.saved") : t("actions.save")}
@@ -128,8 +133,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               read: !state.read
             })
           }
-          className={`ml-auto flex items-center gap-2 rounded-full border border-zinc-800 px-4 py-2 transition hover:border-brand hover:text-brand ${
-            state.read ? "border-zinc-600 text-zinc-300" : ""
+          className={`ml-auto flex items-center gap-2 rounded-full border border-[#1f2532] px-4 py-1.5 transition hover:border-[#3b82f6] hover:text-[#3b82f6] ${
+            state.read ? "border-[#2f3645] text-zinc-300" : ""
           }`}
         >
           👁️ {t("actions.read")}

@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/components/language-provider";
+import { robotoMono } from "@/styles/fonts";
 
 export default function LoginPage() {
   const { t } = useLanguage();
@@ -38,8 +39,8 @@ export default function LoginPage() {
 
   return (
     <section className="mx-auto flex min-h-[70vh] max-w-lg flex-col justify-center px-4 py-12 text-zinc-200 md:px-6">
-      <div className="rounded-3xl border border-zinc-900 bg-[#10151f]/80 p-8 shadow-2xl shadow-black/40 backdrop-blur">
-        <h1 className="text-3xl font-semibold uppercase tracking-[0.24em] text-white">
+      <div className="rounded-3xl border border-[#1f2532] bg-[#141923] p-8 shadow-xl shadow-black/30 backdrop-blur">
+        <h1 className={`${robotoMono.className} text-3xl font-semibold uppercase tracking-[0.32em] text-white`}>
           {t("login.title")}
         </h1>
         <p className="mt-3 text-sm text-zinc-500">
@@ -47,30 +48,30 @@ export default function LoginPage() {
         </p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-          <label className="block text-xs uppercase tracking-[0.24em] text-zinc-500">
+          <label className={`${robotoMono.className} block text-xs uppercase tracking-[0.28em] text-zinc-500`}>
             {t("login.email")}
             <input
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
-              className="mt-2 w-full rounded-xl border border-zinc-800 bg-[#0a0d13] px-4 py-3 text-sm text-zinc-100 focus:border-brand focus:outline-none"
+              className="mt-2 w-full rounded-xl border border-[#1f2532] bg-[#0f141d] px-4 py-3 text-sm text-zinc-100 focus:border-[#3b82f6] focus:outline-none"
             />
           </label>
-          <label className="block text-xs uppercase tracking-[0.24em] text-zinc-500">
+          <label className={`${robotoMono.className} block text-xs uppercase tracking-[0.28em] text-zinc-500`}>
             {t("login.password")}
             <input
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
-              className="mt-2 w-full rounded-xl border border-zinc-800 bg-[#0a0d13] px-4 py-3 text-sm text-zinc-100 focus:border-brand focus:outline-none"
+              className="mt-2 w-full rounded-xl border border-[#1f2532] bg-[#0f141d] px-4 py-3 text-sm text-zinc-100 focus:border-[#3b82f6] focus:outline-none"
             />
           </label>
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full border border-brand px-5 py-3 text-xs uppercase tracking-[0.24em] text-brand transition hover:border-brand-accent hover:text-brand-accent disabled:cursor-not-allowed disabled:opacity-50"
+            className={`${robotoMono.className} w-full rounded-full border border-[#3b82f6]/70 px-5 py-3 text-xs uppercase tracking-[0.3em] text-[#3b82f6] transition hover:border-[#3b82f6] hover:text-white disabled:cursor-not-allowed disabled:opacity-50`}
           >
             {loading ? "…" : t("login.submit")}
           </button>

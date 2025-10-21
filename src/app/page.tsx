@@ -113,26 +113,26 @@ export default function HomePage() {
                 {Array.from({ length: 6 }).map((_, index) => (
                   <div
                     key={index}
-                    className="h-28 animate-pulse rounded-xl border border-zinc-900 bg-zinc-950/60"
+                    className="h-[88px] animate-pulse rounded-lg border border-[#1f2532] bg-[#161b22]"
                   />
                 ))}
               </div>
             )}
 
             {!loading && error && (
-              <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-6 text-sm text-red-200">
+              <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-6 text-sm text-red-200">
                 {error}
               </div>
             )}
 
             {!loading && !error && filteredNews.length === 0 && (
-              <div className="rounded-xl border border-zinc-900 bg-zinc-950/50 p-6 text-sm text-zinc-400">
+              <div className="rounded-lg border border-[#1f2532] bg-[#161b22] p-6 text-sm text-zinc-400">
                 {t("feed.noResults")}
               </div>
             )}
 
             {!loading && !error && filteredNews.length > 0 && (
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {filteredNews.map((item) => (
                   <NewsCard
                     key={item.link}
