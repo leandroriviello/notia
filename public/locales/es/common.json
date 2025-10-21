@@ -36,7 +36,10 @@
   },
   "feed": {
     "noResults": "No hay artículos que coincidan con este filtro.",
-    "fetchError": "No se pudo cargar el feed de noticias."
+    "fetchError": "No se pudo cargar el feed de noticias.",
+    "filters": "Filtros",
+    "topSources": "Fuentes destacadas",
+    "insightPlaceholder": "Pronto verás aquí tus guardados y analíticas."
   },
   "settings": {
     "title": "Configuración",

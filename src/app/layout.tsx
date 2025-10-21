@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-100 text-zinc-900 transition-colors dark:from-zinc-950 dark:via-zinc-950 dark:to-zinc-900 dark:text-zinc-100">
+      <body className="min-h-screen bg-[#0a0d13] text-zinc-100 transition-colors dark:bg-[#0a0d13]">
         <Providers>
           <div className="flex min-h-screen flex-col">
             <Navbar />

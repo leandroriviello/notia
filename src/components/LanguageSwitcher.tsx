@@ -10,12 +10,12 @@ export function LanguageSwitcher() {
       value={locale}
       onChange={(event) => setLocale(event.target.value as "en" | "es")}
       aria-label={t("language.label")}
-      className="rounded-full border border-zinc-300 bg-transparent px-3 py-1 text-sm text-zinc-600 transition focus:border-brand focus:outline-none dark:border-zinc-700 dark:text-zinc-300"
+      className="rounded-full border border-zinc-700 bg-transparent px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition focus:border-brand focus:outline-none"
     >
-      <option value="es" className="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
+      <option value="es" className="bg-[#0e1117] text-zinc-100">
         ES
       </option>
-      <option value="en" className="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
+      <option value="en" className="bg-[#0e1117] text-zinc-100">
         EN
       </option>
     </select>

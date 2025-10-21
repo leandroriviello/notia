@@ -37,40 +37,40 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="mx-auto flex min-h-[70vh] max-w-lg flex-col justify-center px-4 py-12 text-zinc-900 dark:text-zinc-100 md:px-6">
-      <div className="rounded-3xl border border-zinc-200 bg-white/80 p-8 shadow-xl dark:border-zinc-900 dark:bg-zinc-900/60">
-        <h1 className="text-3xl font-semibold">
+    <section className="mx-auto flex min-h-[70vh] max-w-lg flex-col justify-center px-4 py-12 text-zinc-200 md:px-6">
+      <div className="rounded-3xl border border-zinc-900 bg-[#10151f]/80 p-8 shadow-2xl shadow-black/40 backdrop-blur">
+        <h1 className="text-3xl font-semibold uppercase tracking-[0.24em] text-white">
           {t("login.title")}
         </h1>
-        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="mt-3 text-sm text-zinc-500">
           {t("login.subtitle")}
         </p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-          <label className="block text-sm text-zinc-600 dark:text-zinc-300">
+          <label className="block text-xs uppercase tracking-[0.24em] text-zinc-500">
             {t("login.email")}
             <input
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
-              className="mt-2 w-full rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-900 focus:border-brand focus:outline-none dark:border-zinc-700 dark:bg-zinc-950 dark:text-white"
+              className="mt-2 w-full rounded-xl border border-zinc-800 bg-[#0a0d13] px-4 py-3 text-sm text-zinc-100 focus:border-brand focus:outline-none"
             />
           </label>
-          <label className="block text-sm text-zinc-600 dark:text-zinc-300">
+          <label className="block text-xs uppercase tracking-[0.24em] text-zinc-500">
             {t("login.password")}
             <input
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
-              className="mt-2 w-full rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-900 focus:border-brand focus:outline-none dark:border-zinc-700 dark:bg-zinc-950 dark:text-white"
+              className="mt-2 w-full rounded-xl border border-zinc-800 bg-[#0a0d13] px-4 py-3 text-sm text-zinc-100 focus:border-brand focus:outline-none"
             />
           </label>
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full border border-brand px-4 py-2 text-sm text-brand transition hover:border-brand-accent hover:text-brand-accent disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-full border border-brand px-5 py-3 text-xs uppercase tracking-[0.24em] text-brand transition hover:border-brand-accent hover:text-brand-accent disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? "…" : t("login.submit")}
           </button>

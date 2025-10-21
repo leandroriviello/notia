@@ -17,6 +17,16 @@ type NewsCardProps = {
   onUpdate: (state: NewsState) => void;
 };
 
+const CATEGORY_COLORS: Record<string, string> = {
+  Research: "#22d3ee",
+  Products: "#34d399",
+  Business: "#fcd34d",
+  Regulation: "#f87171",
+  Tools: "#a855f7",
+  Papers: "#60a5fa",
+  Social: "#f472b6"
+};
+
 export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
   const { t } = useLanguage();
 
@@ -28,34 +38,50 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
     });
   }, [item.date]);
 
+  const accent = CATEGORY_COLORS[item.category] ?? "#3B82F6";
+
   return (
     <article
-      className={`flex flex-col rounded-2xl border border-zinc-200 bg-white/80 p-5 shadow-sm transition hover:border-brand/60 dark:border-zinc-900 dark:bg-zinc-900/80 ${
+      className={`group relative overflow-hidden rounded-xl border border-zinc-900 bg-[#10151f]/90 p-5 shadow-md shadow-black/20 transition hover:border-brand/60 ${
         state.read ? "opacity-70" : ""
       }`}
+      style={{ borderLeft: `3px solid ${accent}` }}
     >
-      <header className="mb-4 flex flex-col gap-2">
-        <div className="flex items-center justify-between text-xs uppercase tracking-wide text-zinc-500">
-          <span>{item.source}</span>
-          <time dateTime={item.date}>{formattedDate}</time>
+      <header className="mb-4 flex flex-col gap-3">
+        <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.3em] text-zinc-500">
+          <span className="truncate">{item.source}</span>
+          <time dateTime={item.date} className="whitespace-nowrap">
+            {formattedDate}
+          </time>
         </div>
-        <Link
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xl font-semibold text-zinc-900 transition hover:text-brand dark:text-zinc-100"
-        >
-          {item.title}
-        </Link>
+        <div className="flex flex-col gap-2">
+          <Link
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="line-clamp-2 text-lg font-semibold text-white transition group-hover:text-brand"
+          >
+            {item.title}
+          </Link>
+          <span
+            className="w-fit rounded-full bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-300"
+            style={{
+              color: accent,
+              backgroundColor: `${accent}20`
+            }}
+          >
+            {item.category}
+          </span>
+        </div>
       </header>
       {item.summary && (
-        <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
-          {item.summary.length > 260
-            ? `${item.summary.slice(0, 260)}…`
+        <p className="mb-6 text-sm text-zinc-400">
+          {item.summary.length > 240
+            ? `${item.summary.slice(0, 240)}…`
             : item.summary}
         </p>
       )}
-      <footer className="mt-auto flex flex-wrap items-center gap-3 text-sm">
+      <footer className="mt-auto flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-zinc-400">
         <button
           onClick={() =>
             onUpdate({
@@ -63,10 +89,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               vote: state.vote === "up" ? undefined : "up"
             })
           }
-          className={`flex items-center gap-2 rounded-full border px-3 py-1 transition ${
-            state.vote === "up"
-              ? "border-brand bg-brand/20 text-brand"
-              : "border-zinc-300 text-zinc-600 hover:border-brand hover:text-brand dark:border-zinc-700 dark:text-zinc-300"
+          className={`flex items-center gap-2 rounded-full border border-zinc-800 px-4 py-2 transition hover:border-brand hover:text-brand ${
+            state.vote === "up" ? "border-brand text-brand" : ""
           }`}
         >
           👍 {t("actions.interesting")}
@@ -78,10 +102,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               vote: state.vote === "down" ? undefined : "down"
             })
           }
-          className={`flex items-center gap-2 rounded-full border px-3 py-1 transition ${
-            state.vote === "down"
-              ? "border-zinc-400 bg-zinc-200 text-zinc-600 dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
-              : "border-zinc-300 text-zinc-600 hover:border-brand hover:text-brand dark:border-zinc-700 dark:text-zinc-300"
+          className={`flex items-center gap-2 rounded-full border border-zinc-800 px-4 py-2 transition hover:border-brand hover:text-brand ${
+            state.vote === "down" ? "border-brand/60 text-brand" : ""
           }`}
         >
           👎 {t("actions.irrelevant")}
@@ -93,10 +115,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               saved: !state.saved
             })
           }
-          className={`flex items-center gap-2 rounded-full border px-3 py-1 transition ${
-            state.saved
-              ? "border-brand-accent bg-brand-accent/20 text-brand-accent"
-              : "border-zinc-300 text-zinc-600 hover:border-brand hover:text-brand dark:border-zinc-700 dark:text-zinc-300"
+          className={`flex items-center gap-2 rounded-full border border-zinc-800 px-4 py-2 transition hover:border-brand hover:text-brand ${
+            state.saved ? "border-brand-accent/80 text-brand-accent" : ""
           }`}
         >
           ⭐ {state.saved ? t("actions.saved") : t("actions.save")}
@@ -108,10 +128,8 @@ export function NewsCard({ item, state, onUpdate }: NewsCardProps) {
               read: !state.read
             })
           }
-          className={`ml-auto flex items-center gap-2 rounded-full border px-3 py-1 transition ${
-            state.read
-              ? "border-zinc-400 bg-zinc-200 text-zinc-600 dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
-              : "border-zinc-300 text-zinc-600 hover:border-brand hover:text-brand dark:border-zinc-700 dark:text-zinc-300"
+          className={`ml-auto flex items-center gap-2 rounded-full border border-zinc-800 px-4 py-2 transition hover:border-brand hover:text-brand ${
+            state.read ? "border-zinc-600 text-zinc-300" : ""
           }`}
         >
           👁️ {t("actions.read")}

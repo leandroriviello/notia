@@ -36,7 +36,10 @@
   },
   "feed": {
     "noResults": "No articles match this filter.",
-    "fetchError": "Unable to load news feed."
+    "fetchError": "Unable to load news feed.",
+    "filters": "Filters",
+    "topSources": "Top sources",
+    "insightPlaceholder": "Your saved articles and analytics will live here soon."
   },
   "settings": {
     "title": "Settings",

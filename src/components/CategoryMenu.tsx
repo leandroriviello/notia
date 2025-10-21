@@ -26,7 +26,7 @@ export function CategoryMenu({ active, onSelect }: CategoryMenuProps) {
   const { t } = useLanguage();
 
   return (
-    <nav className="sticky top-16 z-30 border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80">
+    <nav className="sticky top-[64px] z-30 border-b border-zinc-900/60 bg-zinc-950/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3 md:px-6">
         {CATEGORIES.map((category) => {
           const isActive = active === category.value;
@@ -34,10 +34,10 @@ export function CategoryMenu({ active, onSelect }: CategoryMenuProps) {
             <button
               key={category.key}
               onClick={() => onSelect(category.value)}
-              className={`whitespace-nowrap rounded-full px-4 py-2 text-sm transition ${
+              className={`whitespace-nowrap rounded-xl px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] transition ${
                 isActive
-                  ? "bg-brand text-white shadow"
-                  : "bg-zinc-200 text-zinc-600 hover:bg-zinc-300 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                  ? "bg-brand/30 text-white shadow-sm shadow-brand/40"
+                  : "bg-zinc-900/50 text-zinc-500 hover:bg-zinc-900 hover:text-white"
               }`}
             >
               {t(`categories.${category.key}`)}

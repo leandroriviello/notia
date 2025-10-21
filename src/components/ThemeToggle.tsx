@@ -16,7 +16,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="rounded-full border border-zinc-300 px-3 py-1 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-300"
+        className="rounded-full border border-zinc-700 px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300"
         aria-label={t("theme.toggle")}
       >
         —
@@ -25,17 +25,18 @@ export function ThemeToggle() {
   }
 
   const isDark = theme === "dark";
+  const label = isDark ? t("theme.dark") : t("theme.light");
 
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="flex items-center gap-2 rounded-full border border-zinc-300 px-3 py-1 text-sm text-zinc-600 transition hover:border-brand hover:text-brand dark:border-zinc-700 dark:text-zinc-300"
+      className="flex items-center gap-2 rounded-full border border-zinc-700 px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition hover:border-brand hover:text-brand"
       aria-label={t("theme.toggle")}
     >
       <span aria-hidden className="text-lg">
         {isDark ? "🌙" : "☀️"}
       </span>
-      <span>{isDark ? t("theme.dark") : t("theme.light")}</span>
+      <span>{label.toUpperCase()}</span>
     </button>
   );
 }
