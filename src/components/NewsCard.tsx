@@ -52,6 +52,9 @@ export function NewsCard({ item, state, onUpdate, onOpen }: NewsCardProps) {
   const accent = CATEGORY_COLORS[item.category] ?? "#e5e7eb";
   const categoryKey = CATEGORY_TRANSLATIONS[item.category] ?? "all";
   const categoryLabel = t(`categories.${categoryKey}`).toUpperCase();
+  const summaryPreview = useMemo(() => {
+    return item.summary.replace(/\s+/g, " ").trim();
+  }, [item.summary]);
 
   return (
     <article
@@ -88,11 +91,11 @@ export function NewsCard({ item, state, onUpdate, onOpen }: NewsCardProps) {
           </span>
         </div>
       </header>
-      {item.summary && (
+      {summaryPreview && summaryPreview !== "No summary available." && (
         <p className="mb-4 line-clamp-3 text-[13px] leading-relaxed text-zinc-400">
-          {item.summary.length > 220
-            ? `${item.summary.slice(0, 220)}…`
-            : item.summary}
+          {summaryPreview.length > 220
+            ? `${summaryPreview.slice(0, 220)}…`
+            : summaryPreview}
         </p>
       )}
       <footer

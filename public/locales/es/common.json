@@ -39,7 +39,8 @@
     "fetchError": "No se pudo cargar el feed de noticias.",
     "filters": "Filtros",
     "topSources": "Fuentes destacadas",
-    "insightPlaceholder": "Pronto verás aquí tus guardados y analíticas."
+    "insightPlaceholder": "Pronto verás aquí tus guardados y analíticas.",
+    "showMore": "Mostrar más…"
   },
   "settings": {
     "title": "Configuración",

@@ -47,6 +47,10 @@ export function NewsModal({ article, onClose }: NewsModalProps) {
   });
   const categoryKey = CATEGORY_TRANSLATIONS[article.category] ?? "all";
   const categoryLabel = t(`categories.${categoryKey}`).toUpperCase();
+  const paragraphs = article.summary
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
+    .filter((paragraph) => paragraph && paragraph !== "No summary available.");
 
   return (
     <div
@@ -95,10 +99,12 @@ export function NewsModal({ article, onClose }: NewsModalProps) {
               </span>
             </div>
           </div>
-          {article.summary && (
-            <p className="text-sm leading-relaxed text-zinc-300">
-              {article.summary}
-            </p>
+          {paragraphs.length > 0 && (
+            <div className="space-y-4 text-sm leading-relaxed text-zinc-300">
+              {paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
           )}
           <div className="flex items-center justify-end border-t border-[#1f1f1f] pt-6">
             <a

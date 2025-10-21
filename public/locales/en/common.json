@@ -39,7 +39,8 @@
     "fetchError": "Unable to load news feed.",
     "filters": "Filters",
     "topSources": "Top sources",
-    "insightPlaceholder": "Your saved articles and analytics will live here soon."
+    "insightPlaceholder": "Your saved articles and analytics will live here soon.",
+    "showMore": "Show more…"
   },
   "settings": {
     "title": "Settings",

@@ -9,6 +9,8 @@ import type { NewsArticle } from "@/types/news";
 import { FeedSidebar } from "@/components/FeedSidebar";
 import { InsightPanel } from "@/components/InsightPanel";
 import { NewsModal } from "@/components/NewsModal";
+import { CATEGORY_CONFIG, type CategoryValue } from "@/constants/categories";
+import { robotoMono } from "@/styles/fonts";
 
 type CategoryFilter = "all" | FeedCategory;
 
@@ -23,6 +25,7 @@ export default function HomePage() {
   const [category, setCategory] = useState<CategoryFilter>("all");
   const [newsState, setNewsState] = useState<Record<string, NewsState>>({});
   const [activeSources, setActiveSources] = useState<string[]>([]);
+  const [visibleCount, setVisibleCount] = useState(10);
   const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(
     null
   );
@@ -31,6 +34,7 @@ export default function HomePage() {
 
   useEffect(() => {
     setSelectedArticle(null);
+    setVisibleCount(10);
   }, [locale]);
 
   useEffect(() => {
@@ -68,6 +72,10 @@ export default function HomePage() {
   }, [locale, availableSources]);
 
   useEffect(() => {
+    setVisibleCount(10);
+  }, [category, activeSources]);
+
+  useEffect(() => {
     const load = async () => {
       try {
         setLoading(true);
@@ -101,22 +109,47 @@ export default function HomePage() {
     });
   };
 
+  const sourceFilteredNews = useMemo(() => {
+    return news.filter((item) => {
+      if (activeSources.length === 0) return true;
+      return activeSources.includes(item.source);
+    });
+  }, [news, activeSources]);
+
+  const availableCategories = useMemo(() => {
+    const present = new Set<CategoryValue>();
+    sourceFilteredNews.forEach((item) => {
+      if (CATEGORY_CONFIG.some((config) => config.value === item.category)) {
+        present.add(item.category as CategoryValue);
+      }
+    });
+    return CATEGORY_CONFIG.filter((category) => present.has(category.value)).map(
+      (category) => category.value
+    );
+  }, [sourceFilteredNews]);
+
+  useEffect(() => {
+    if (category !== "all" && !availableCategories.includes(category)) {
+      setCategory("all");
+    }
+  }, [availableCategories, category]);
+
   const filteredNews = useMemo(() => {
-    return news
-      .filter((item) => {
-        if (activeSources.length === 0) return true;
-        return activeSources.includes(item.source);
-      })
-      .filter((item) => {
-        if (category === "all") return true;
-        return item.category === category;
-      });
-  }, [news, activeSources, category]);
+    return sourceFilteredNews.filter((item) => {
+      if (category === "all") return true;
+      return item.category === category;
+    });
+  }, [sourceFilteredNews, category]);
+
+  const visibleNews = useMemo(() => {
+    return filteredNews.slice(0, visibleCount);
+  }, [filteredNews, visibleCount]);
 
   return (
     <div className="pb-16 text-zinc-100">
       <CategoryMenu
         active={category}
+        available={availableCategories}
         onSelect={(categoryValue) =>
           setCategory(categoryValue as CategoryFilter)
         }
@@ -125,6 +158,7 @@ export default function HomePage() {
         <div className="grid gap-6 md:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_280px]">
           <FeedSidebar
             active={category}
+            available={availableCategories}
             onSelect={(categoryValue) =>
               setCategory(categoryValue as CategoryFilter)
             }
@@ -153,9 +187,9 @@ export default function HomePage() {
               </div>
             )}
 
-            {!loading && !error && filteredNews.length > 0 && (
+            {!loading && !error && visibleNews.length > 0 && (
               <div className="space-y-3">
-                {filteredNews.map((item) => (
+                {visibleNews.map((item) => (
                   <NewsCard
                     key={item.link}
                     item={item}
@@ -169,6 +203,17 @@ export default function HomePage() {
                     onOpen={() => setSelectedArticle(item)}
                   />
                 ))}
+              </div>
+            )}
+
+            {!loading && !error && filteredNews.length > visibleCount && (
+              <div className="flex justify-center pt-2">
+                <button
+                  onClick={() => setVisibleCount((prev) => prev + 10)}
+                  className={`${robotoMono.className} rounded-full border border-zinc-400 px-5 py-2 text-xs uppercase tracking-[0.24em] text-zinc-200 transition hover:border-zinc-300 hover:text-white`}
+                >
+                  {t("feed.showMore")}
+                </button>
               </div>
             )}
           </div>

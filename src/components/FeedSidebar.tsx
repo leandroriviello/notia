@@ -1,26 +1,20 @@
 "use client";
 
-import { CategoryValue } from "./CategoryMenu";
 import { useLanguage } from "./language-provider";
 import { robotoMono } from "@/styles/fonts";
-
-const ICONS: Record<CategoryValue | "all", string> = {
-  all: "📰",
-  Research: "🔬",
-  Products: "🛠️",
-  Business: "💼",
-  Regulation: "⚖️",
-  Tools: "🧰",
-  Papers: "📄",
-  Social: "💬"
-};
+import {
+  CATEGORY_CONFIG,
+  CATEGORY_ICONS,
+  type CategoryValue
+} from "@/constants/categories";
 
 type FeedSidebarProps = {
   active: CategoryValue | "all";
   onSelect: (category: CategoryValue | "all") => void;
+  available: CategoryValue[];
 };
 
-export function FeedSidebar({ active, onSelect }: FeedSidebarProps) {
+export function FeedSidebar({ active, onSelect, available }: FeedSidebarProps) {
   const { t } = useLanguage();
 
   return (
@@ -29,25 +23,36 @@ export function FeedSidebar({ active, onSelect }: FeedSidebarProps) {
         {t("feed.filters")}
       </p>
       <ul className="mt-4 space-y-1">
-        {(Object.keys(ICONS) as Array<CategoryValue | "all">).map((key) => {
-          const isActive = active === key;
+        <li>
+          <button
+            onClick={() => onSelect("all")}
+            className={`${robotoMono.className} flex w-full items-center gap-3 rounded-lg px-3 py-2 text-[12px] uppercase tracking-[0.22em] transition ${
+              active === "all"
+                ? "bg-[#1a1a1a] text-white"
+                : "text-zinc-400 hover:bg-[#1a1a1a]/70 hover:text-white"
+            }`}
+          >
+            <span className="text-lg">📰</span>
+            <span className="truncate">{t("categories.all")}</span>
+          </button>
+        </li>
+        {CATEGORY_CONFIG.filter((category) =>
+          available.includes(category.value)
+        ).map((category) => {
+          const isActive = active === category.value;
           return (
-            <li key={key}>
+            <li key={category.key}>
               <button
-                onClick={() => onSelect(key)}
+                onClick={() => onSelect(category.value)}
                 className={`${robotoMono.className} flex w-full items-center gap-3 rounded-lg px-3 py-2 text-[12px] uppercase tracking-[0.22em] transition ${
                   isActive
                     ? "bg-[#1a1a1a] text-white"
                     : "text-zinc-400 hover:bg-[#1a1a1a]/70 hover:text-white"
                 }`}
               >
-                <span className="text-lg">{ICONS[key]}</span>
+                <span className="text-lg">{CATEGORY_ICONS[category.value]}</span>
                 <span className="truncate">
-                  {t(
-                    `categories.${
-                      key === "all" ? "all" : key.toLowerCase()
-                    }`
-                  )}
+                  {t(`categories.${category.key}`)}
                 </span>
               </button>
             </li>

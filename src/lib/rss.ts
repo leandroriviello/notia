@@ -10,9 +10,18 @@ const parser = new Parser({
 
 function sanitize(text: string | undefined | null): string {
   if (!text) return "No summary available.";
-  return text
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
+  const withLineBreaks = text
+    .replace(/<(\/?)(h\d|div|section|article|blockquote)[^>]*>/gi, "\n")
+    .replace(/<br\s*\/?>(\s)*/gi, "\n")
+    .replace(/<\/(p|li)>/gi, "\n")
+    .replace(/<li>/gi, "- ");
+
+  const withoutTags = withLineBreaks.replace(/<[^>]+>/g, "");
+
+  return withoutTags
+    .replace(/\r/g, "")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
