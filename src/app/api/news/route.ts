@@ -55,7 +55,7 @@ export async function GET(request: Request) {
   const fallback: NewsArticle[] = stored.map((item) => ({
     title: item.title,
     link: item.link,
-    summary: item.summary ?? undefined,
+    summary: item.summary ?? "No summary available.",
     source: item.source,
     date: item.date.toISOString(),
     category: item.category
