@@ -6,10 +6,11 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const locale = searchParams.get("locale") === "es" ? "es" : "en";
   const canUseDatabase = Boolean(process.env.DATABASE_URL);
+  let persistenceAvailable = canUseDatabase;
   try {
     const news = await fetchNews(locale);
 
-    if (canUseDatabase) {
+    if (persistenceAvailable) {
       const operations = news
         .filter((item) => item.link)
         .map((item) =>
@@ -40,7 +41,18 @@ export async function GET(request: Request) {
         );
 
       if (operations.length > 0) {
-        await prisma.$transaction(operations);
+        try {
+          await prisma.$transaction(operations);
+        } catch (error: any) {
+          if (error?.code === "P2021") {
+            console.warn(
+              "[notia] Prisma table Article does not exist. Skipping persistence."
+            );
+            persistenceAvailable = false;
+          } else {
+            throw error;
+          }
+        }
       }
     }
 
@@ -49,7 +61,7 @@ export async function GET(request: Request) {
     console.error("Failed to refresh RSS feeds", error);
   }
 
-  if (!canUseDatabase) {
+  if (!persistenceAvailable) {
     return Response.json([] satisfies NewsArticle[]);
   }
 

@@ -105,10 +105,10 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       label: "Xataka IA"
     },
     {
-      id: "hipertextual-ia",
-      url: "https://hipertextual.com/tag/inteligencia-artificial/feed",
+      id: "hipertextual",
+      url: "https://hipertextual.com/feed",
       category: "Products",
-      label: "Hipertextual IA"
+      label: "Hipertextual"
     },
     {
       id: "genbeta-ia",
@@ -117,46 +117,28 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       label: "Genbeta IA"
     },
     {
-      id: "blogthinkbig-ia",
-      url: "https://blogthinkbig.com/tag/inteligencia-artificial/feed",
+      id: "europapress-ia",
+      url: "https://www.europapress.es/rss/rss.aspx?canal=tecnologia-inteligencia-artificial",
       category: "Business",
-      label: "BlogThinkBig IA"
+      label: "Europa Press IA"
     },
     {
-      id: "ticbeat-ia",
-      url: "https://www.ticbeat.com/tag/inteligencia-artificial/feed/",
+      id: "muycomputerpro-ia",
+      url: "https://www.muycomputerpro.com/tag/inteligencia-artificial/feed/",
       category: "Business",
-      label: "TICbeat IA"
+      label: "MuyComputer Pro IA"
     },
     {
-      id: "muycomputer-ia",
-      url: "https://www.muycomputer.com/tag/inteligencia-artificial/feed/",
+      id: "emprendedores-ia",
+      url: "https://emprendedores.es/tag/inteligencia-artificial/feed/",
       category: "Products",
-      label: "MuyComputer IA"
+      label: "Emprendedores IA"
     },
     {
-      id: "iblnews-ia",
-      url: "https://iblnews.es/feed/",
-      category: "Business",
-      label: "IBL News"
-    },
-    {
-      id: "la7tv-ia",
-      url: "https://www.la7tv.es/rss/tags/inteligencia-artificial/",
-      category: "Social",
-      label: "La 7 TV IA"
-    },
-    {
-      id: "webnode-ia",
-      url: "https://inteligencia-artificial294.webnode.es/rss/",
-      category: "Research",
-      label: "IA 294"
-    },
-    {
-      id: "elpais-ia",
-      url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/noticias-inteligencia-artificial?format=xml",
+      id: "elpais-retina-ia",
+      url: "https://retina.elpais.com/rss/tag/inteligencia_artificial/a/",
       category: "Regulation",
-      label: "El País IA"
+      label: "El País Retina IA"
     }
   ]
 };

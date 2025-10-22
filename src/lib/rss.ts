@@ -5,6 +5,12 @@ import type { NewsArticle } from "@/types/news";
 const parser = new Parser({
   customFields: {
     item: ["contentSnippet", "summary"]
+  },
+  requestOptions: {
+    headers: {
+      "User-Agent": "Mozilla/5.0 (compatible; NotiaBot/1.0; +https://notia.info)"
+    },
+    timeout: 10000
   }
 });
 
