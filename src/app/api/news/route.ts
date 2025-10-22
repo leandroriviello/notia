@@ -5,40 +5,43 @@ import type { NewsArticle } from "@/types/news";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const locale = searchParams.get("locale") === "es" ? "es" : "en";
+  const canUseDatabase = Boolean(process.env.DATABASE_URL);
   try {
     const news = await fetchNews(locale);
 
-    const operations = news
-      .filter((item) => item.link)
-      .map((item) =>
-        prisma.article.upsert({
-          where: {
-            link_locale: {
+    if (canUseDatabase) {
+      const operations = news
+        .filter((item) => item.link)
+        .map((item) =>
+          prisma.article.upsert({
+            where: {
+              link_locale: {
+                link: item.link,
+                locale
+              }
+            },
+            update: {
+              title: item.title,
+              summary: item.summary,
+              source: item.source,
+              date: new Date(item.date),
+              category: item.category
+            },
+            create: {
+              title: item.title,
+              summary: item.summary,
+              source: item.source,
+              date: new Date(item.date),
+              category: item.category,
               link: item.link,
               locale
             }
-          },
-          update: {
-            title: item.title,
-            summary: item.summary,
-            source: item.source,
-            date: new Date(item.date),
-            category: item.category
-          },
-          create: {
-            title: item.title,
-            summary: item.summary,
-            source: item.source,
-            date: new Date(item.date),
-            category: item.category,
-            link: item.link,
-            locale
-          }
-        })
-      );
+          })
+        );
 
-    if (operations.length > 0) {
-      await prisma.$transaction(operations);
+      if (operations.length > 0) {
+        await prisma.$transaction(operations);
+      }
     }
 
     return Response.json(news);
@@ -46,20 +49,29 @@ export async function GET(request: Request) {
     console.error("Failed to refresh RSS feeds", error);
   }
 
-  const stored = await prisma.article.findMany({
-    where: { locale },
-    orderBy: { date: "desc" },
-    take: 60
-  });
+  if (!canUseDatabase) {
+    return Response.json([] satisfies NewsArticle[]);
+  }
 
-  const fallback: NewsArticle[] = stored.map((item) => ({
-    title: item.title,
-    link: item.link,
-    summary: item.summary ?? "No summary available.",
-    source: item.source,
-    date: item.date.toISOString(),
-    category: item.category
-  }));
+  try {
+    const stored = await prisma.article.findMany({
+      where: { locale },
+      orderBy: { date: "desc" },
+      take: 60
+    });
 
-  return Response.json(fallback);
+    const fallback: NewsArticle[] = stored.map((item) => ({
+      title: item.title,
+      link: item.link,
+      summary: item.summary ?? "No summary available.",
+      source: item.source,
+      date: item.date.toISOString(),
+      category: item.category
+    }));
+
+    return Response.json(fallback);
+  } catch (error) {
+    console.error("Failed to load stored articles", error);
+    return Response.json([] satisfies NewsArticle[]);
+  }
 }
