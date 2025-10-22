@@ -1,45 +1,28 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CategoryMenu } from "@/components/CategoryMenu";
 import { NewsCard, NewsState } from "@/components/NewsCard";
 import { useLanguage } from "@/components/language-provider";
-import { getFeedSources } from "@/data/sources";
 import type { NewsArticle } from "@/types/news";
-import { FeedSidebar } from "@/components/FeedSidebar";
 import { InsightPanel } from "@/components/InsightPanel";
 import { NewsModal } from "@/components/NewsModal";
-import { CATEGORY_CONFIG, type CategoryValue } from "@/constants/categories";
 import { robotoMono } from "@/styles/fonts";
 
-type CategoryFilter = "all" | CategoryValue;
-
 const NEWS_STATE_KEY = "notia:news-state";
-const SOURCE_PREF_KEY = (locale: string) => `notia:sources:${locale}`;
 
 export default function HomePage() {
   const { t, locale } = useLanguage();
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [category, setCategory] = useState<CategoryFilter>("all");
   const [newsState, setNewsState] = useState<Record<string, NewsState>>({});
-  const [activeSources, setActiveSources] = useState<string[]>([]);
   const [visibleCount, setVisibleCount] = useState(10);
   const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(
     null
   );
 
-  const availableSources = useMemo(() => getFeedSources(locale), [locale]);
-
-  useEffect(() => {
-    setSelectedArticle(null);
-    setVisibleCount(10);
-  }, [locale]);
-
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     const storedState = window.localStorage.getItem(NEWS_STATE_KEY);
     if (storedState) {
       try {
@@ -48,32 +31,12 @@ export default function HomePage() {
         setNewsState({});
       }
     }
-
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const key = SOURCE_PREF_KEY(locale);
-    const storedSources = window.localStorage.getItem(key);
-    if (storedSources) {
-      try {
-        const parsed = JSON.parse(storedSources) as string[];
-        setActiveSources(parsed);
-        setCategory("all");
-        return;
-      } catch {
-        // fall through to defaults
-      }
-    }
-    const defaults = availableSources.map((source) => source.label);
-    setActiveSources(defaults);
-    setCategory("all");
-    window.localStorage.setItem(key, JSON.stringify(defaults));
-  }, [locale, availableSources]);
-
-  useEffect(() => {
+    setSelectedArticle(null);
     setVisibleCount(10);
-  }, [category, activeSources]);
+  }, [locale]);
 
   useEffect(() => {
     const load = async () => {
@@ -109,48 +72,16 @@ export default function HomePage() {
     });
   };
 
-  const sourceFilteredNews = useMemo(() => {
-    return news.filter((item) => {
-      if (activeSources.length === 0) return true;
-      return activeSources.includes(item.source);
-    });
-  }, [news, activeSources]);
-
-  const availableCategories = useMemo(() => {
-    const present = new Set<CategoryValue>();
-    sourceFilteredNews.forEach((item) => {
-      if (CATEGORY_CONFIG.some((config) => config.value === item.category)) {
-        present.add(item.category as CategoryValue);
-      }
-    });
-    return CATEGORY_CONFIG.filter((category) => present.has(category.value)).map(
-      (category) => category.value
-    );
-  }, [sourceFilteredNews]);
-
-  useEffect(() => {
-    if (category !== "all" && !availableCategories.includes(category)) {
-      setCategory("all");
-    }
-  }, [availableCategories, category]);
-
-  const filteredNews = useMemo(() => {
-    return sourceFilteredNews.filter((item) => {
-      if (category === "all") return true;
-      return item.category === category;
-    });
-  }, [sourceFilteredNews, category]);
-
   const visibleNews = useMemo(() => {
-    return filteredNews.slice(0, visibleCount);
-  }, [filteredNews, visibleCount]);
+    return news.slice(0, visibleCount);
+  }, [news, visibleCount]);
 
   const structuredData = useMemo(() => {
     const localizedName =
       locale === "es"
         ? "Notia — Noticias de Inteligencia Artificial"
         : "Notia — AI News Dashboard";
-    const items = filteredNews.slice(0, 20).map((item) => ({
+    const items = news.slice(0, 20).map((item) => ({
       "@type": "NewsArticle",
       headline: item.title,
       datePublished: item.date,
@@ -171,30 +102,12 @@ export default function HomePage() {
       about: "Artificial intelligence news aggregator",
       hasPart: items
     };
-  }, [filteredNews, locale, t]);
+  }, [news, locale, t]);
 
   return (
     <div className="pb-16 text-zinc-100">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 pt-12 md:px-6">
-        <h1 className={`${robotoMono.className} text-2xl font-semibold uppercase tracking-[0.24em] text-white`}>{t("feed.heading")}</h1>
-        <p className="max-w-3xl text-sm text-zinc-400">{t("feed.subheading")}</p>
-      </div>
-      <CategoryMenu
-        active={category}
-        available={availableCategories}
-        onSelect={(categoryValue) =>
-          setCategory(categoryValue as CategoryFilter)
-        }
-      />
-      <section className="mx-auto mt-6 max-w-6xl px-4 md:px-6">
-        <div className="grid gap-6 md:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_280px]">
-          <FeedSidebar
-            active={category}
-            available={availableCategories}
-            onSelect={(categoryValue) =>
-              setCategory(categoryValue as CategoryFilter)
-            }
-          />
+      <section className="mx-auto mt-8 max-w-6xl px-4 md:px-6">
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_280px]">
           <div className="space-y-6">
             {loading && (
               <div className="space-y-3">
@@ -213,7 +126,7 @@ export default function HomePage() {
               </div>
             )}
 
-            {!loading && !error && filteredNews.length === 0 && (
+            {!loading && !error && news.length === 0 && (
               <div className="rounded-lg border border-[#1f1f1f] bg-[#131313] p-6 text-sm text-zinc-400">
                 {t("feed.noResults")}
               </div>
@@ -239,7 +152,7 @@ export default function HomePage() {
               </div>
             )}
 
-            {!loading && !error && filteredNews.length > visibleCount && (
+            {!loading && !error && news.length > visibleCount && (
               <div className="flex justify-center pt-2">
                 <button
                   onClick={() => setVisibleCount((prev) => prev + 10)}
@@ -250,7 +163,7 @@ export default function HomePage() {
               </div>
             )}
           </div>
-          <InsightPanel articles={filteredNews} />
+          <InsightPanel articles={news} />
         </div>
       </section>
       <script

@@ -7,10 +7,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "./language-provider";
 import { robotoMono } from "@/styles/fonts";
 
-const NAV_LINKS = [
-  { href: "/", key: "home" },
-  { href: "/settings", key: "settings" }
-] as const;
+const NAV_LINKS = [{ href: "/", key: "home" }] as const;
 
 export function Navbar() {
   const pathname = usePathname();
