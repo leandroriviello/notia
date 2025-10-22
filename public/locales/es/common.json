@@ -31,7 +31,8 @@
     "irrelevant": "Irrelevante",
     "save": "Guardar",
     "saved": "Guardado",
-    "read": "Leído"
+    "read": "Leído",
+    "open": "Abrir"
   },
   "feed": {
     "noResults": "No hay artículos que coincidan con este filtro.",
@@ -41,7 +42,11 @@
     "insightPlaceholder": "Pronto verás aquí tus guardados y analíticas.",
     "showMore": "Mostrar más…",
     "heading": "Noticias y novedades sobre Inteligencia Artificial",
-    "subheading": "Descubre investigaciones, productos, negocios, regulaciones, herramientas y papers destacados del mundo de la IA."
+    "subheading": "Descubre investigaciones, productos, negocios, regulaciones, herramientas y papers destacados del mundo de la IA.",
+    "topVotes": "Más interesantes",
+    "noVotes": "Marca historias como interesantes para ver tus destacados.",
+    "calendarTitle": "Ver por fecha",
+    "clearDate": "Borrar fecha"
   },
   "settings": {
     "title": "Configuración",

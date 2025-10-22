@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import en from "../../public/locales/en/common.json";
 import es from "../../public/locales/es/common.json";
 
-type Locale = "en" | "es";
+export type Locale = "en" | "es";
 
 type Messages = typeof en;
 
@@ -39,12 +39,18 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("es");
 
   useEffect(() => {
-    const stored = typeof window !== "undefined"
-      ? (window.localStorage.getItem(STORAGE_KEY) as Locale | null)
-      : null;
+    if (typeof window === "undefined") return;
+
+    const stored = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
     if (stored && translations[stored]) {
       setLocaleState(stored);
+      return;
     }
+
+    const browserLanguage = window.navigator.language?.toLowerCase() ?? "es";
+    const detected: Locale = browserLanguage.startsWith("es") ? "es" : "en";
+    setLocaleState(detected);
+    window.localStorage.setItem(STORAGE_KEY, detected);
   }, []);
 
   const setLocale = (next: Locale) => {

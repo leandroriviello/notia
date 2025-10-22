@@ -3,7 +3,6 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useLanguage } from "./language-provider";
-import { robotoMono } from "@/styles/fonts";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -17,27 +16,23 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className={`${robotoMono.className} rounded-full border border-[#2a2a2a] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300`}
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 text-lg text-zinc-600 dark:border-[#2a2a2a] dark:text-zinc-200"
         aria-label={t("theme.toggle")}
       >
-        —
+        •
       </button>
     );
   }
 
   const isDark = theme === "dark";
-  const label = isDark ? t("theme.dark") : t("theme.light");
 
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`${robotoMono.className} flex items-center gap-2 rounded-full border border-[#2a2a2a] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-300 transition hover:border-zinc-400 hover:text-white`}
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 text-lg transition hover:border-zinc-400 hover:text-zinc-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 dark:border-[#2a2a2a] dark:text-zinc-200 dark:hover:border-zinc-400 dark:hover:text-white dark:focus-visible:ring-zinc-200"
       aria-label={t("theme.toggle")}
     >
-      <span aria-hidden className="text-lg">
-        {isDark ? "🌙" : "☀️"}
-      </span>
-      <span>{label.toUpperCase()}</span>
+      {isDark ? "🌙" : "☀️"}
     </button>
   );
 }

@@ -31,7 +31,8 @@
     "irrelevant": "Irrelevant",
     "save": "Save",
     "saved": "Saved",
-    "read": "Read"
+    "read": "Read",
+    "open": "Open"
   },
   "feed": {
     "noResults": "No articles match this filter.",
@@ -41,7 +42,11 @@
     "insightPlaceholder": "Your saved articles and analytics will live here soon.",
     "showMore": "Show more…",
     "heading": "Artificial Intelligence News & Updates",
-    "subheading": "Stay ahead with curated AI research, products, business moves, regulations, tools, and papers."
+    "subheading": "Stay ahead with curated AI research, products, business moves, regulations, tools, and papers.",
+    "topVotes": "Most interesting",
+    "noVotes": "Mark stories as interesting to see your highlights.",
+    "calendarTitle": "Browse by date",
+    "clearDate": "Clear date"
   },
   "settings": {
     "title": "Settings",

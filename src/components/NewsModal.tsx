@@ -60,7 +60,7 @@ export function NewsModal({ article, onClose }: NewsModalProps) {
       role="presentation"
     >
       <div
-        className="relative w-full max-w-3xl rounded-3xl border border-[#232323] bg-[#131313] p-8 shadow-2xl shadow-black/40"
+        className="relative w-full max-w-3xl rounded-3xl border border-zinc-200 bg-white p-8 shadow-2xl shadow-black/40 dark:border-[#232323] dark:bg-[#131313]"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -68,7 +68,7 @@ export function NewsModal({ article, onClose }: NewsModalProps) {
       >
         <button
           onClick={onClose}
-          className={`${robotoMono.className} absolute right-5 top-5 rounded-full border border-[#2a2a2a] px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-400 transition hover:border-zinc-400 hover:text-white`}
+          className={`${robotoMono.className} absolute right-5 top-5 rounded-full border border-zinc-200 px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-500 transition hover:border-zinc-400 hover:text-zinc-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300 dark:border-[#2a2a2a] dark:text-zinc-400 dark:hover:border-zinc-400 dark:hover:text-white dark:focus-visible:ring-zinc-200`}
           aria-label={t("modal.close")}
         >
           {t("modal.close")}
@@ -82,7 +82,7 @@ export function NewsModal({ article, onClose }: NewsModalProps) {
             </p>
             <h2
               id="news-modal-title"
-              className="text-2xl font-semibold leading-tight text-white"
+              className="text-2xl font-semibold leading-tight text-zinc-900 dark:text-white"
             >
               {article.title}
             </h2>
@@ -101,18 +101,18 @@ export function NewsModal({ article, onClose }: NewsModalProps) {
             </div>
           </div>
           {paragraphs.length > 0 && (
-            <div className="space-y-4 text-sm leading-relaxed text-zinc-300">
+            <div className="space-y-4 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
               {paragraphs.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
           )}
-          <div className="flex items-center justify-end border-t border-[#1f1f1f] pt-6">
+          <div className="flex items-center justify-end border-t border-zinc-200 pt-6 dark:border-[#1f1f1f]">
             <a
               href={article.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${robotoMono.className} inline-flex items-center gap-2 rounded-full border border-zinc-400 px-5 py-2 text-xs uppercase tracking-[0.26em] text-zinc-100 transition hover:border-zinc-300 hover:text-white`}
+              className={`${robotoMono.className} inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2 text-xs uppercase tracking-[0.26em] text-zinc-700 transition hover:border-zinc-500 hover:text-zinc-900 dark:border-zinc-400 dark:text-zinc-100 dark:hover:border-zinc-300 dark:hover:text-white`}
             >
               {t("modal.open")}
             </a>

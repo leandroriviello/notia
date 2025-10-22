@@ -6,3 +6,7 @@ export type NewsArticle = {
   date: string;
   category: string;
 };
+
+export type NewsState = {
+  vote?: "up" | "down";
+};
