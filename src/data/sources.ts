@@ -75,12 +75,6 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       label: "Genbeta IA"
     },
     {
-      id: "europapress-ia",
-      url: "https://www.europapress.es/rss/rss.aspx?canal=tecnologia-inteligencia-artificial",
-      category: "Business",
-      label: "Europa Press IA"
-    },
-    {
       id: "muycomputerpro-ia",
       url: "https://www.muycomputerpro.com/tag/inteligencia-artificial/feed/",
       category: "Business",

@@ -103,11 +103,25 @@ export async function fetchNews(locale: Locale = "en"): Promise<NewsArticle[]> {
     })
   );
 
-  return results
+  const MAX_ITEMS_PER_SOURCE = 6;
+
+  const sorted = results
     .flat()
     .filter((item) => Boolean(item.link))
-    .sort((a, b) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
-    })
-    .slice(0, 60);
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const perSourceCount = new Map<string, number>();
+  const balanced: NewsArticle[] = [];
+
+  for (const item of sorted) {
+    const currentCount = perSourceCount.get(item.source) ?? 0;
+    if (currentCount >= MAX_ITEMS_PER_SOURCE) {
+      continue;
+    }
+    perSourceCount.set(item.source, currentCount + 1);
+    balanced.push(item);
+    if (balanced.length >= 60) break;
+  }
+
+  return balanced;
 }
