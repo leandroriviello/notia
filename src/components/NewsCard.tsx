@@ -11,6 +11,7 @@ type NewsCardProps = {
   onUpdate: (state: NewsState) => void;
   onOpen: () => void;
   locale: string;
+  relativeDate: string;
 };
 
 const CATEGORY_TRANSLATIONS: Record<string, string> = {
@@ -23,7 +24,14 @@ const CATEGORY_TRANSLATIONS: Record<string, string> = {
   Social: "social"
 };
 
-export function NewsCard({ item, state, onUpdate, onOpen, locale }: NewsCardProps) {
+export function NewsCard({
+  item,
+  state,
+  onUpdate,
+  onOpen,
+  locale,
+  relativeDate
+}: NewsCardProps) {
   const { t } = useLanguage();
 
   const formattedDate = useMemo(() => {
@@ -53,8 +61,12 @@ export function NewsCard({ item, state, onUpdate, onOpen, locale }: NewsCardProp
           className={`${robotoMono.className} flex items-center justify-between text-[11px] uppercase tracking-[0.24em] text-zinc-500 dark:text-zinc-500`}
         >
           <span className="truncate">{item.source}</span>
-          <time dateTime={item.date} className="whitespace-nowrap">
-            {formattedDate}
+          <time
+            dateTime={item.date}
+            title={formattedDate}
+            className="whitespace-nowrap"
+          >
+            {relativeDate}
           </time>
         </div>
         <div className="flex flex-col gap-2">

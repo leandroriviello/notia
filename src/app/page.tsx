@@ -99,6 +99,33 @@ export default function HomePage() {
     return filteredNews.slice(0, visibleCount);
   }, [filteredNews, visibleCount]);
 
+  const relativeTimeFormatter = useMemo(() => {
+    try {
+      return new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
+    } catch {
+      return new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+    }
+  }, [locale]);
+
+  const formatRelativeTime = (isoDate: string) => {
+    const target = new Date(isoDate);
+    const now = new Date();
+    const diffMs = target.getTime() - now.getTime();
+    const diffMinutes = Math.round(diffMs / (1000 * 60));
+
+    if (Math.abs(diffMinutes) < 60) {
+      return relativeTimeFormatter.format(diffMinutes, "minute");
+    }
+
+    const diffHours = Math.round(diffMinutes / 60);
+    if (Math.abs(diffHours) < 24) {
+      return relativeTimeFormatter.format(diffHours, "hour");
+    }
+
+    const diffDays = Math.round(diffHours / 24);
+    return relativeTimeFormatter.format(diffDays, "day");
+  };
+
   const topUpvoted = useMemo(() => {
     const upvotedLinks = Object.entries(newsState)
       .filter(([, value]) => value.vote === "up")
@@ -188,6 +215,7 @@ export default function HomePage() {
                     onUpdate={handleUpdate(item.link)}
                     onOpen={() => setSelectedArticle(item)}
                     locale={locale}
+                    relativeDate={formatRelativeTime(item.date)}
                   />
                 ))}
               </div>
