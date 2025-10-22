@@ -30,6 +30,7 @@ model Article {
   title     String
   link      String
   summary   String?
+  image     String?
   source    String
   date      DateTime
   category  String

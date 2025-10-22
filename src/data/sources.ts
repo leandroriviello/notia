@@ -31,28 +31,10 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       label: "VentureBeat AI"
     },
     {
-      id: "theverge-ai",
-      url: "https://www.theverge.com/rss/ai-artificial-intelligence",
-      category: "Products",
-      label: "The Verge AI"
-    },
-    {
-      id: "mit-tech-review",
-      url: "https://www.technologyreview.com/feed/",
-      category: "Research",
-      label: "MIT Tech Review"
-    },
-    {
       id: "ai-trends",
       url: "https://www.aitrends.com/feed/",
       category: "Business",
       label: "AI Trends"
-    },
-    {
-      id: "wired-ai",
-      url: "https://www.wired.com/feed/category/science/artificial-intelligence/latest/rss",
-      category: "Products",
-      label: "WIRED AI"
     },
     {
       id: "synced-review",
@@ -67,18 +49,6 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       label: "The Decoder"
     },
     {
-      id: "builtin-ai",
-      url: "https://builtin.com/topic/artificial-intelligence/feed",
-      category: "Business",
-      label: "Built In AI"
-    },
-    {
-      id: "ai-blog",
-      url: "https://www.artificial-intelligence.blog/feed/",
-      category: "Research",
-      label: "AI Blog"
-    },
-    {
       id: "ai-act-news",
       url: "https://artificialintelligenceact.eu/feed/",
       category: "Regulation",
@@ -91,25 +61,13 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       label: "arXiv cs.AI"
     },
     {
-      id: "nvidia-blog",
-      url: "https://blogs.nvidia.com/feed/",
-      category: "Products",
-      label: "NVIDIA Blog"
+      id: "unite-ai",
+      url: "https://www.unite.ai/feed/",
+      category: "Research",
+      label: "Unite.AI"
     }
   ],
   es: [
-    {
-      id: "xataka-ia",
-      url: "https://www.xataka.com/tag/inteligencia-artificial/rss",
-      category: "Social",
-      label: "Xataka IA"
-    },
-    {
-      id: "hipertextual",
-      url: "https://hipertextual.com/feed",
-      category: "Products",
-      label: "Hipertextual"
-    },
     {
       id: "genbeta-ia",
       url: "https://www.genbeta.com/tag/inteligencia-artificial/rss2.xml",
@@ -139,6 +97,18 @@ const feedSourcesByLocale: Record<Locale, FeedSource[]> = {
       url: "https://retina.elpais.com/rss/tag/inteligencia_artificial/a/",
       category: "Regulation",
       label: "El País Retina IA"
+    },
+    {
+      id: "lavanguardia-ia",
+      url: "https://www.lavanguardia.com/tecnologia/inteligencia-artificial/rss.xml",
+      category: "Research",
+      label: "La Vanguardia IA"
+    },
+    {
+      id: "digitaltrends-ia",
+      url: "https://es.digitaltrends.com/inteligencia-artificial/feed/",
+      category: "Products",
+      label: "Digital Trends IA"
     }
   ]
 };

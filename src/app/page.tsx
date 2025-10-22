@@ -104,13 +104,13 @@ export default function HomePage() {
       .filter(([, value]) => value.vote === "up")
       .map(([link]) => link);
 
-    return news
+    return filteredNews
       .filter((article) => upvotedLinks.includes(article.link))
       .sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
       )
       .slice(0, 3);
-  }, [news, newsState]);
+  }, [filteredNews, newsState]);
 
   const availableDates = useMemo(() => {
     return Array.from(

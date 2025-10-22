@@ -24,6 +24,7 @@ export async function GET(request: Request) {
             update: {
               title: item.title,
               summary: item.summary,
+              image: item.image,
               source: item.source,
               date: new Date(item.date),
               category: item.category
@@ -31,6 +32,7 @@ export async function GET(request: Request) {
             create: {
               title: item.title,
               summary: item.summary,
+              image: item.image,
               source: item.source,
               date: new Date(item.date),
               category: item.category,
@@ -76,6 +78,7 @@ export async function GET(request: Request) {
       title: item.title,
       link: item.link,
       summary: item.summary ?? "No summary available.",
+      image: item.image ?? undefined,
       source: item.source,
       date: item.date.toISOString(),
       category: item.category

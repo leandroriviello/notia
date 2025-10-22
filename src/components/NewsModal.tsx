@@ -100,6 +100,15 @@ export function NewsModal({ article, onClose }: NewsModalProps) {
               </span>
             </div>
           </div>
+          {article.image && (
+            <div className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
+              <img
+                src={article.image}
+                alt={article.title}
+                className="h-auto w-full object-cover"
+              />
+            </div>
+          )}
           {paragraphs.length > 0 && (
             <div className="space-y-4 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
               {paragraphs.map((paragraph, index) => (
